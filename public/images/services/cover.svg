@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" role="img" aria-label="スクール紹介のカバー">
+  <defs><linearGradient id="c1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFEFF8"/><stop offset="1" stop-color="#EAF8FC"/></linearGradient></defs>
+  <rect width="1600" height="600" fill="url(#c1)"/>
+  <circle cx="1320" cy="170" r="90" fill="#FFD86B" opacity="0.85"/>
+  <g fill="#FFFFFF" opacity="0.85"><ellipse cx="300" cy="150" rx="140" ry="52"/><ellipse cx="430" cy="135" rx="100" ry="44"/></g>
+  <path d="M0 470q400-70 800-25t800-15v170H0z" fill="#BCE5D8"/>
+  <g font-family="'Baloo 2',sans-serif" font-weight="700" font-size="56" text-anchor="middle">
+    <g transform="translate(620 360) rotate(-5)"><rect x="-55" y="-55" width="110" height="110" rx="16" fill="#7ED0E6"/><text y="20" fill="#FFFDF6">A</text></g>
+    <g transform="translate(740 390) rotate(4)"><rect x="-55" y="-55" width="110" height="110" rx="16" fill="#FF9E86"/><text y="20" fill="#FFFDF6">B</text></g>
+    <g transform="translate(860 360) rotate(-3)"><rect x="-55" y="-55" width="110" height="110" rx="16" fill="#FFD86B"/><text y="20" fill="#2F4A57">C</text></g>
+  </g>
+  <text x="800" y="180" text-anchor="middle" font-family="'Baloo 2',sans-serif" font-weight="700" font-size="64" fill="#7FBFD6" opacity="0.6">SCHOOL</text>
+</svg>

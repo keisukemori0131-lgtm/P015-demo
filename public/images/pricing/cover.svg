@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" role="img" aria-label="料金・コースのカバー">
+  <defs><linearGradient id="cp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D7F0F8"/><stop offset="1" stop-color="#EAF8FC"/></linearGradient></defs>
+  <rect width="1600" height="600" fill="url(#cp)"/>
+  <g fill="#FFFFFF" opacity="0.85"><ellipse cx="1180" cy="150" rx="150" ry="54"/><ellipse cx="1300" cy="135" rx="100" ry="44"/></g>
+  <circle cx="300" cy="170" r="86" fill="#FFD86B" opacity="0.8"/>
+  <path d="M0 470q400-70 800-25t800-15v170H0z" fill="#BCE5D8"/>
+  <!-- balloons / tags -->
+  <g transform="translate(700 360)">
+    <g transform="rotate(-6)"><rect x="-70" y="-70" width="140" height="140" rx="22" fill="#7ED0E6"/><circle cx="-40" cy="-40" r="12" fill="#FFFDF6"/></g>
+  </g>
+  <g transform="translate(880 380)">
+    <g transform="rotate(6)"><rect x="-66" y="-66" width="132" height="132" rx="22" fill="#FF9E86"/><circle cx="-36" cy="-36" r="11" fill="#FFFDF6"/></g>
+  </g>
+  <text x="800" y="180" text-anchor="middle" font-family="'Baloo 2',sans-serif" font-weight="700" font-size="64" fill="#7FBFD6" opacity="0.6">COURSE</text>
+</svg>

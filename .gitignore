@@ -1,0 +1,20 @@
+node_modules
+dist
+dist-ssr
+*.local
+
+# ローカル用シークレット
+.env.local
+.env.*.local
+.dev.vars
+
+# UpNote ローカル JSON（作業コピー・APIエクスポート）。サンプルのみコミット
+public/upnote-local/*.json
+!public/upnote-local/*.sample.json
+
+# Cloudflare / wrangler
+.wrangler
+
+# editor
+.DS_Store
+*.log

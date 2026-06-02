@@ -1,0 +1,12 @@
+{
+  // ★ Worker 名は Cloudflare ダッシュボードで作成した Worker 名と完全一致させること
+  //   （不一致だと別 Worker が自動生成され設定変数が当たらない / P008 2026-05）
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "p015demo",
+  "compatibility_date": "2026-05-01",
+  // 新規案件はパターン B 直叩き。proxy Worker(main) は不要・assets のみ
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}

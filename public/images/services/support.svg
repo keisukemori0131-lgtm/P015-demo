@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="発達特性に寄り添う指導のイメージ">
+  <rect width="800" height="600" fill="#E9F7FB"/>
+  <!-- gentle hands holding heart -->
+  <g transform="translate(400 320)">
+    <path d="M0 70c-70-54-100-96-58-138 26-26 58-8 58 18 0-26 32-44 58-18 42 42 12 84-58 138z" fill="#FF9E86"/>
+  </g>
+  <g fill="none" stroke="#3E9DBC" stroke-width="16" stroke-linecap="round">
+    <path d="M250 430q40 60 150 60t150-60"/>
+  </g>
+  <path d="M250 430q-30-10-40-44" stroke="#3E9DBC" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <path d="M550 430q30-10 40-44" stroke="#3E9DBC" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <!-- puzzle dots -->
+  <g fill="#FFD86B"><circle cx="220" cy="180" r="16"/><circle cx="590" cy="200" r="14"/></g>
+  <circle cx="400" cy="160" r="12" fill="#7ED0E6"/>
+</svg>

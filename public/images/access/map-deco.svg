@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="アクセスの装飾イメージ">
+  <rect width="800" height="600" fill="#E9F7FB"/>
+  <g stroke="#BFE0EC" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.8">
+    <path d="M60 480q140-40 240 40t240-120 200 60"/>
+    <path d="M120 120h180v180"/>
+  </g>
+  <!-- pin -->
+  <g transform="translate(420 250)">
+    <path d="M0 140C-70 40-90 0-50-50 -20-86 60-86 90-40 120 10 70 60 0 140z" fill="#FF9E86"/>
+    <circle cy="-12" r="40" fill="#FFFDF6"/>
+    <circle cy="-12" r="18" fill="#3E9DBC"/>
+  </g>
+  <g fill="#FFD86B"><circle cx="160" cy="420" r="14"/><circle cx="640" cy="160" r="16"/></g>
+</svg>

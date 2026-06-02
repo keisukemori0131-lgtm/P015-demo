@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="本と吹き出し、英語であそぶように学ぶイメージ">
+  <defs>
+    <linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D7F0F8"/>
+      <stop offset="1" stop-color="#EAF8FC"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky3)"/>
+  <circle cx="280" cy="220" r="100" fill="#FFD86B" opacity="0.85"/>
+  <g fill="#FFFFFF" opacity="0.85"><ellipse cx="1150" cy="200" rx="160" ry="60"/><ellipse cx="1280" cy="220" rx="100" ry="44"/></g>
+  <path d="M0 760q400-80 800-30t800-20v190H0z" fill="#BCE5D8"/>
+  <!-- open book -->
+  <g transform="translate(800 560)">
+    <path d="M-260 60q130-70 260-30v-200q-130-40-260 30z" fill="#FFFDF6" stroke="#7ED0E6" stroke-width="5"/>
+    <path d="M260 60q-130-70-260-30v-200q130-40 260 30z" fill="#FFFDF6" stroke="#7ED0E6" stroke-width="5"/>
+    <g stroke="#BFE0EC" stroke-width="4" stroke-linecap="round">
+      <path d="M-220-90h170M-220-50h150M-220-10h170"/>
+      <path d="M220-90H50M220-50H70M220-10H50"/>
+    </g>
+  </g>
+  <!-- speech bubbles -->
+  <g font-family="'Baloo 2',sans-serif" font-weight="700" font-size="56" fill="#FFFDF6">
+    <g transform="translate(520 300)"><rect x="-90" y="-58" width="180" height="110" rx="30" fill="#FF9E86"/><path d="M-30 50l-8 40 50-40z" fill="#FF9E86"/><text x="0" y="18" text-anchor="middle">Hi!</text></g>
+    <g transform="translate(1110 360)"><rect x="-110" y="-58" width="220" height="110" rx="30" fill="#7ED0E6"/><path d="M40 50l8 40-58-40z" fill="#7ED0E6"/><text x="0" y="18" text-anchor="middle">Hello</text></g>
+  </g>
+</svg>

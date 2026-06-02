@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" role="img" aria-label="お問い合わせのカバー">
+  <defs><linearGradient id="ct" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D7F0F8"/><stop offset="1" stop-color="#EAF8FC"/></linearGradient></defs>
+  <rect width="1600" height="600" fill="url(#ct)"/>
+  <circle cx="300" cy="160" r="84" fill="#FFD86B" opacity="0.8"/>
+  <g fill="#FFFFFF" opacity="0.85"><ellipse cx="1250" cy="160" rx="140" ry="52"/></g>
+  <path d="M0 470q400-70 800-25t800-15v170H0z" fill="#BCE5D8"/>
+  <!-- envelope -->
+  <g transform="translate(800 350)">
+    <rect x="-150" y="-90" width="300" height="190" rx="18" fill="#FFFDF6" stroke="#7ED0E6" stroke-width="6"/>
+    <path d="M-150-90l150 110 150-110" fill="none" stroke="#FF9E86" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="120" cy="-70" r="20" fill="#FFD86B"/>
+  </g>
+  <text x="800" y="170" text-anchor="middle" font-family="'Baloo 2',sans-serif" font-weight="700" font-size="58" fill="#7FBFD6" opacity="0.6">CONTACT</text>
+</svg>

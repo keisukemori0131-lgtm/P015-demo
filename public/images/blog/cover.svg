@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" role="img" aria-label="コラムのカバー">
+  <defs><linearGradient id="cb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFEFF8"/><stop offset="1" stop-color="#EAF8FC"/></linearGradient></defs>
+  <rect width="1600" height="600" fill="url(#cb)"/>
+  <g fill="#FFFFFF" opacity="0.85"><ellipse cx="320" cy="150" rx="150" ry="54"/><ellipse cx="1250" cy="160" rx="130" ry="50"/></g>
+  <path d="M0 470q400-70 800-25t800-15v170H0z" fill="#BCE5D8"/>
+  <!-- pencil + bubble -->
+  <g transform="translate(700 350)">
+    <rect x="-30" y="-90" width="60" height="180" rx="14" fill="#FFD86B"/>
+    <path d="M-30 90l30 56 30-56z" fill="#2F4A57"/>
+    <rect x="-30" y="-90" width="60" height="28" rx="10" fill="#FF9E86"/>
+  </g>
+  <g transform="translate(900 330)"><rect x="-90" y="-58" width="180" height="116" rx="28" fill="#7ED0E6"/><path d="M-40 56l-6 38 46-38z" fill="#7ED0E6"/><g stroke="#FFFDF6" stroke-width="8" stroke-linecap="round"><path d="M-50-16h100M-50 14h70"/></g></g>
+  <text x="800" y="180" text-anchor="middle" font-family="'Baloo 2',sans-serif" font-weight="700" font-size="64" fill="#7FBFD6" opacity="0.6">COLUMN</text>
+</svg>

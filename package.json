@@ -1,0 +1,26 @@
+{
+  "name": "p015-peraperakids-demo",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && npm run postbuild",
+    "build:cloudflare:public": "cross-env VITE_SITE_PUBLIC=1 npm run build",
+    "postbuild": "node scripts/generate-sitemap.mjs",
+    "preview": "vite preview",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-helmet-async": "^2.0.5",
+    "react-router-dom": "^6.28.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.4.0",
+    "cross-env": "^7.0.3",
+    "vite": "^6.0.0",
+    "wrangler": "^4.0.0"
+  }
+}

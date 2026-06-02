@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="少人数制クラスのイメージ">
+  <rect width="800" height="600" fill="#E9F7FB"/>
+  <ellipse cx="400" cy="470" rx="240" ry="40" fill="#BCE5D8"/>
+  <!-- three kids -->
+  <g>
+    <g transform="translate(270 320)"><circle cy="-70" r="46" fill="#FFD8C2"/><path d="M-60 90v-40a60 60 0 0 1 120 0v40z" fill="#7ED0E6"/></g>
+    <g transform="translate(400 300)"><circle cy="-80" r="52" fill="#FFD8C2"/><path d="M-68 100V56a68 68 0 0 1 136 0v44z" fill="#FF9E86"/></g>
+    <g transform="translate(530 320)"><circle cy="-70" r="46" fill="#FFD8C2"/><path d="M-60 90v-40a60 60 0 0 1 120 0v40z" fill="#FFD86B"/></g>
+  </g>
+  <g fill="#3E9DBC"><circle cx="258" cy="248" r="6"/><circle cx="284" cy="248" r="6"/><circle cx="386" cy="226" r="7"/><circle cx="414" cy="226" r="7"/><circle cx="518" cy="248" r="6"/><circle cx="544" cy="248" r="6"/></g>
+  <circle cx="180" cy="150" r="16" fill="#FFD86B"/><circle cx="630" cy="170" r="14" fill="#7ED0E6"/>
+</svg>

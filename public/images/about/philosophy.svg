@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="教育方針のイメージ">
+  <rect width="800" height="600" fill="#E9F7FB"/>
+  <ellipse cx="400" cy="480" rx="250" ry="40" fill="#BCE5D8"/>
+  <!-- growing sprout from book -->
+  <g transform="translate(400 360)">
+    <path d="M-140 40q140-50 280 0v60q-140-40-280 0z" fill="#FFFDF6" stroke="#7ED0E6" stroke-width="6"/>
+    <rect x="-12" y="-150" width="24" height="150" rx="10" fill="#8FD3C4"/>
+    <path d="M0-110q-50-10-70-60 60-6 70 40z" fill="#8FD3C4"/>
+    <path d="M0-90q50-10 70-60-60-6-70 40z" fill="#7ED0E6"/>
+    <circle cx="0" cy="-160" r="22" fill="#FFD86B"/>
+  </g>
+  <circle cx="200" cy="150" r="16" fill="#FF9E86"/><circle cx="610" cy="180" r="14" fill="#FFD86B"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="現役ドクターによる専門レッスンのイメージ">
+  <rect width="800" height="600" fill="#E9F7FB"/>
+  <circle cx="400" cy="300" r="170" fill="#FFFDF6" stroke="#7ED0E6" stroke-width="6"/>
+  <!-- stethoscope -->
+  <g fill="none" stroke="#3E9DBC" stroke-width="14" stroke-linecap="round">
+    <path d="M320 200v70a80 80 0 0 0 160 0v-70"/>
+    <path d="M480 270v60a60 60 0 0 0 60 60"/>
+  </g>
+  <circle cx="320" cy="196" r="16" fill="#3E9DBC"/><circle cx="480" cy="196" r="16" fill="#3E9DBC"/>
+  <circle cx="540" cy="392" r="40" fill="#FF9E86"/>
+  <circle cx="540" cy="392" r="18" fill="#FFFDF6"/>
+  <!-- heart cross -->
+  <g transform="translate(380 410)"><path d="M0 40c-50-40-70-70-40-100 18-18 40-6 40 12 0-18 22-30 40-12 30 30 10 60-40 100z" fill="#FFD86B"/></g>
+  <circle cx="250" cy="160" r="14" fill="#FFD86B"/>
+</svg>

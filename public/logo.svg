@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 84" role="img" aria-label="ペラペラキッズカレッジ札幌 ロゴ">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7ED0E6"/>
+      <stop offset="1" stop-color="#3E9DBC"/>
+    </linearGradient>
+  </defs>
+  <!-- badge: speech bubble globe -->
+  <g>
+    <rect x="6" y="10" width="64" height="64" rx="20" fill="url(#lg)"/>
+    <circle cx="38" cy="40" r="20" fill="#FFFDF6"/>
+    <path d="M38 20a20 20 0 0 0 0 40M18 40h40M22 30h32M22 50h32" fill="none" stroke="#3E9DBC" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="38" cy="40" r="20" fill="none" stroke="#3E9DBC" stroke-width="2.4"/>
+    <path d="M30 70l8 10 6-10z" fill="url(#lg)"/>
+    <circle cx="60" cy="20" r="6" fill="#FFD86B"/>
+  </g>
+  <!-- wordmark -->
+  <g font-family="'Baloo 2','Zen Maru Gothic',sans-serif">
+    <text x="84" y="40" font-size="25" font-weight="700" fill="#2F4A57">Pera Pera</text>
+    <text x="84" y="66" font-size="17" font-weight="600" fill="#3E9DBC" letter-spacing="1.5">KIDS COLLEGE</text>
+  </g>
+</svg>
