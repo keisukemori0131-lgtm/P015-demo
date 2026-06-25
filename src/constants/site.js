@@ -175,8 +175,8 @@ const CONTACT_MARUYAMA = {
   postalCode: '060-0005',
   address: '北海道札幌市中央区北5条西23丁目2-1 第16藤栄ビル 1F',
   streetAddress: '北5条西23丁目2-1 第16藤栄ビル 1F',
-  // 第16藤栄ビル（現 FC Farnest北円山）の座標でピンを固定
-  mapEmbedUrl: buildMapEmbedUrl(null, { lat: 43.06032, lng: 141.31765, zoom: 18 }),
+  // Google Maps: https://maps.app.goo.gl/2pJY7c5ZnUWkgEd5A
+  mapEmbedUrl: buildMapEmbedUrl(null, { lat: 43.0634722, lng: 141.3211665, zoom: 18 }),
 }
 
 const CONTACT_MIYANOMORI = {
