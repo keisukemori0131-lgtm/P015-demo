@@ -12,7 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = join(__dirname, '..')
 const dist = join(root, 'dist')
 
-const SITE_URL = (process.env.VITE_SITE_URL || 'https://peraperakidscollege.jp').replace(/\/$/, '')
+const SITE_URL = (process.env.VITE_SITE_URL || 'https://peraperastudio.jp').replace(/\/$/, '')
 const IS_PUBLIC = process.env.VITE_SITE_PUBLIC === '1'
 
 const routesPath = join(root, 'src', 'constants', 'site-routes.json')

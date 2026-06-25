@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npm run postbuild",
+    "build": "vite build",
     "build:cloudflare:public": "cross-env VITE_SITE_PUBLIC=1 npm run build",
     "postbuild": "node scripts/generate-sitemap.mjs",
     "preview": "vite preview",

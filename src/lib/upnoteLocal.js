@@ -56,20 +56,3 @@ export async function fetchLocalContents(slug, options = {}) {
   }
 }
 
-export async function fetchLocalContentById(id) {
-  // ローカルでは全 slug を横断検索（id で一意）
-  const slugs = ['news', 'columns', 'faq']
-  for (const slug of slugs) {
-    let all
-    try {
-      all = await loadAll(slug)
-    } catch {
-      continue
-    }
-    const hit = all.find((it) => String(it.id) === String(id))
-    if (hit) return hit
-  }
-  const err = new Error(`NOT_FOUND: ${id}`)
-  err.errorCode = 'NOT_FOUND'
-  throw err
-}

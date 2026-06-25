@@ -54,8 +54,8 @@ export default function Header() {
   return (
     <header className={headerClass}>
       <div className="header__inner">
-        <Link to="/" className="header__logo" onClick={scrollToTop} aria-label="ペラペラキッズカレッジ札幌 ホーム">
-          <Logo height={46} src="/logo-header.png" />
+        <Link to="/" className="header__logo" onClick={scrollToTop} aria-label="ペラペラスタジオ ホーム">
+          <Logo height={46} />
         </Link>
 
         <button

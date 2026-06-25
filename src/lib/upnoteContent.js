@@ -77,6 +77,27 @@ export function getContentThumb(item) {
   return getContentImageUrls(item)[0] || ''
 }
 
+// members（役員・従業員）向けヘルパー
+export function getMemberName(item) {
+  return getContentTitle(item)
+}
+
+export function getMemberRole(item) {
+  return getContentSubtitle(item)
+}
+
+export function getMemberLead(item) {
+  return getContentLead(item)
+}
+
+export function getMemberBody(item) {
+  return getContentBody(item)
+}
+
+export function getMemberQualifications(item) {
+  return getContentTags(item)
+}
+
 // モーダル上段スロットで描画済み → 詳細情報グリッドから除外するキー（R14-3a）
 export const DEFAULT_MODAL_SKIP_KEYS = [
   'article_title',

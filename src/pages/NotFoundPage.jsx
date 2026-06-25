@@ -5,7 +5,7 @@ import DocumentMeta from '../components/DocumentMeta.jsx'
 export default function NotFoundPage() {
   return (
     <>
-      <DocumentMeta title="ページが見つかりません｜ペラペラキッズカレッジ札幌" />
+      <DocumentMeta title="ページが見つかりません｜ペラペラスタジオ" robots="noindex,nofollow" />
       <section className="section notfound">
         <div className="container container--narrow">
           <p className="notfound__code">404</p>

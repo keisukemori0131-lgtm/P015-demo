@@ -14,8 +14,8 @@ export default function BlogPage() {
           <p className="eyebrow">COLUMN</p>
           <h2 className="section-title">コラム</h2>
           <p className="section-lead">
-            おうちでできる英語あそびのヒントや、バイリンガル教育・イマージョン学習の考え方など、
-            子どもの英語に役立つ情報をスクールの視点でお届けします。
+            児童発達支援・放課後等デイサービスや、英語・運動を通した子育てのヒントなど、
+            子どもたちの成長に役立つ情報をペラペラスタジオの視点でお届けします。
           </p>
           <ContentListSection slug={CONTENT_TYPE_FOR.blog} emptyLabel={EMPTY_MESSAGES.columns} />
         </div>

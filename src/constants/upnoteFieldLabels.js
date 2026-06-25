@@ -29,6 +29,8 @@ export const UPNOTE_FIELD_LABELS = {
   target_age: '対象年齢',
   course_name: 'コース名',
   event_date: '開催日',
+  position: '役職',
+  qualifications: '資格',
 }
 
 export function labelForField(key) {

@@ -2,11 +2,12 @@
 # ※ Cloudflare Workers + wrangler.jsonc 配信のため SPA fallback(/* /index.html 200)は入れない。
 #    deep-link は wrangler.jsonc の not_found_handling: single-page-application が処理する。
 #
-# 注意: 旧サイトは別ドメイン(peraperakidscollege.amebaownd.com)のため、旧URL→新URLの 301 は
-#       旧ドメイン側で設定できない。GSCのアドレス変更で対応する（HANDOFF「SEO移行」参照）。
-#       下記は新サイト内の旧パス互換用。
-
-/company      /services  301
-/company/     /services  301
-/access       /services  301
-/access/      /services  301
+# 新サイト内の旧パス互換用（App.jsx の Navigate と対応）。
+/services     /support   301
+/services/    /support   301
+/pricing      /support   301
+/pricing/     /support   301
+/company      /about     301
+/company/     /about     301
+/access       /contact   301
+/access/      /contact   301

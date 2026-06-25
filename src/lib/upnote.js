@@ -11,7 +11,7 @@
 //
 // ※ R15: dev でキー・ベース URL 未設定なら fetchLocalContents 経由でローカル JSON を読む。
 
-import { fetchLocalContents, fetchLocalContentById } from './upnoteLocal.js'
+import { fetchLocalContents } from './upnoteLocal.js'
 
 const DEFAULT_KEY_HEADER = 'X-API-Key'
 const PROXY_PREFIX = '/api/upnote/v1'
@@ -91,14 +91,6 @@ export async function fetchContents(contentTypeSlug, options = {}) {
   return request(`/contents?${params.toString()}`)
 }
 
-/**
- * コンテンツ詳細取得。下書き・掲載期間外は 404 (NOT_FOUND) を投げる。
- */
-export async function fetchContentById(id) {
-  if (USE_LOCAL_DATA) return fetchLocalContentById(id)
-  return request(`/contents/${id}`)
-}
-
 /* ───────────── 表示ヘルパー ───────────── */
 
 export function formatDateJST(utcString, options) {
@@ -112,25 +104,10 @@ export function formatDateJST(utcString, options) {
   })
 }
 
-export function formatDate(dateStr) {
-  if (!dateStr) return ''
-  const [y, m, d] = dateStr.split('-')
-  return `${y}年${Number(m)}月${Number(d)}日`
-}
-
-export const fallback = (v, alt) => (v == null || v === '' ? alt : v)
-
 export const EMPTY_MESSAGES = {
   news: 'お知らせは現在登録されていません。',
   case_studies: '実績・事例は現在登録されていません。',
   faq: 'よくあるご質問は現在登録されていません。',
   columns: 'コラムは現在登録されていません。',
-}
-
-export function isWithinPostedPeriod(item, now = new Date()) {
-  const s = item?.data?.posted_period_start
-  const e = item?.data?.posted_period_end
-  if (s && new Date(s) > now) return false
-  if (e && new Date(e) < now) return false
-  return true
+  members: 'スタッフ紹介は現在登録されていません。',
 }

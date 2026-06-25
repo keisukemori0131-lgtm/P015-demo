@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 
 // .reveal 要素をスクロールインで表示（R16-5）。ルート遷移ごとに再スキャン。
 const SELECTOR =
-  '.section, .preview, .usp-card, .card-grid > *, .faq-item, .cta-band, .reveal'
+  '.section, .preview, .page-hero, .rep-message, .usp-card, .value-card, .belief-card, .pillar-card, .member-card, .card-grid > *, .value-grid > *, .belief-grid > *, .pillar-grid > *, .curriculum-dayflow__item, .curriculum-timeline__item, .faq-item, .cta-band, .note-box--reveal, .reveal'
 
 export default function ScrollReveal() {
   const { pathname } = useLocation()

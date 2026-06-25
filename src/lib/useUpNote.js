@@ -1,23 +1,24 @@
 import { useEffect, useRef, useState } from 'react'
-import { fetchContents, fetchContentById } from './upnote.js'
-
-const SIGNED_URL_REFRESH_MS = 30 * 60 * 1000 // 30分 (署名付きURLは1時間で失効)
+import { fetchContents } from './upnote.js'
 
 /**
  * コンテンツ一覧フック
- * @param {string} contentTypeSlug
- * @param {{page?: number, limit?: number, q?: string, refreshIntervalMs?: number}} [options]
+ * @param {string|null} contentTypeSlug null のときは fetch しない
+ * @param {{page?: number, limit?: number, q?: string}} [options]
  */
 export function useContentList(contentTypeSlug, options = {}) {
-  const { page, limit, q, refreshIntervalMs = SIGNED_URL_REFRESH_MS } = options
+  const { page, limit, q } = options
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(contentTypeSlug != null)
   const aliveRef = useRef(true)
 
   useEffect(() => {
     aliveRef.current = true
-    let timer
+    if (contentTypeSlug == null) {
+      setLoading(false)
+      return
+    }
 
     const load = async () => {
       try {
@@ -34,58 +35,11 @@ export function useContentList(contentTypeSlug, options = {}) {
 
     setLoading(true)
     load()
-    timer = setInterval(load, refreshIntervalMs)
 
     return () => {
       aliveRef.current = false
-      clearInterval(timer)
     }
-  }, [contentTypeSlug, page, limit, q, refreshIntervalMs])
-
-  return { data, error, loading }
-}
-
-/**
- * コンテンツ詳細フック
- * @param {number|string|null|undefined} id null/undefined のときは fetch しない
- */
-export function useContentById(id, options = {}) {
-  const { refreshIntervalMs = SIGNED_URL_REFRESH_MS } = options
-  const [data, setData] = useState(null)
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(id != null)
-  const aliveRef = useRef(true)
-
-  useEffect(() => {
-    aliveRef.current = true
-    if (id == null) {
-      setLoading(false)
-      return
-    }
-    let timer
-
-    const load = async () => {
-      try {
-        const res = await fetchContentById(id)
-        if (!aliveRef.current) return
-        setData(res)
-        setError(null)
-      } catch (e) {
-        if (aliveRef.current) setError(e)
-      } finally {
-        if (aliveRef.current) setLoading(false)
-      }
-    }
-
-    setLoading(true)
-    load()
-    timer = setInterval(load, refreshIntervalMs)
-
-    return () => {
-      aliveRef.current = false
-      clearInterval(timer)
-    }
-  }, [id, refreshIntervalMs])
+  }, [contentTypeSlug, page, limit, q])
 
   return { data, error, loading }
 }
