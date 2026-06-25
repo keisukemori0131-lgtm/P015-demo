@@ -158,9 +158,12 @@ export const SHARED_CONTACT = {
   email: 'englishbootcampp@gmail.com',
 }
 
-function buildMapEmbedUrl(query) {
+function buildMapEmbedUrl(query, { zoom = 17, lat, lng } = {}) {
+  if (lat != null && lng != null) {
+    return `https://maps.google.com/maps?q=${lat},${lng}&hl=ja&z=${zoom}&output=embed`
+  }
   const q = encodeURIComponent(query)
-  return `https://maps.google.com/maps?q=${q}&hl=ja&z=16&output=embed`
+  return `https://maps.google.com/maps?q=${q}&hl=ja&z=${zoom}&output=embed`
 }
 
 // 校舎ごとの所在地（TEL・メールは SHARED_CONTACT を参照）。
@@ -170,9 +173,10 @@ const CONTACT_MARUYAMA = {
   ...SHARED_CONTACT,
   postal: '〒060-0005',
   postalCode: '060-0005',
-  address: '札幌市中央区北5条西23丁目2-1 FC Farnest北円山 1階',
-  streetAddress: '北5条西23丁目2-1 FC Farnest北円山 1階',
-  mapEmbedUrl: buildMapEmbedUrl('〒060-0005 札幌市中央区北5条西23丁目2-1 FC Farnest北円山'),
+  address: '北海道札幌市中央区北5条西23丁目2-1 第16藤栄ビル 1F',
+  streetAddress: '北5条西23丁目2-1 第16藤栄ビル 1F',
+  // 第16藤栄ビル（現 FC Farnest北円山）の座標でピンを固定
+  mapEmbedUrl: buildMapEmbedUrl(null, { lat: 43.06032, lng: 141.31765, zoom: 18 }),
 }
 
 const CONTACT_MIYANOMORI = {

@@ -114,6 +114,9 @@ export const DEFAULT_MODAL_SKIP_KEYS = [
   'attachment_3',
   'tag_name',
   'notice_date',
+  // 掲載期間（掲載開始日・掲載終了日）は運用情報のため画面に表示しない
+  'posted_period_start',
+  'posted_period_end',
   'challenge',
   'approach',
   'outcome',
