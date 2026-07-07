@@ -62,15 +62,11 @@ export default function HomePage() {
         <div className="hero__inner">
           <div className={`hero__content${heroReady ? ' is-ready' : ''}`}>
             <h1 className="hero__title">
-              <span className="hero__line hero__line--lead">英語で学び、運動で育ち、</span>
-              <span className="hero__line hero__line--main">自信をつける。</span>
+              <span className="hero__line hero__line--lead">英語で学び　運動で育ち</span>
+              <span className="hero__line hero__line--main">自信をつける</span>
             </h1>
             <p className="hero__sub">
-              <span className="hero__sub-line">
-                児童発達支援・放課後等デイサービス{' '}
-                <span className="hero__sub-brand">ペラペラスタジオ</span>
-              </span>
-              <span className="hero__sub-line">子どもたちの「できた！」を大切に。</span>
+              <span className="hero__sub-line">児童発達支援・放課後等デイサービス</span>
             </p>
           </div>
         </div>
@@ -85,7 +81,7 @@ export default function HomePage() {
           <p className="eyebrow">OUR STUDIO</p>
           <h2 className="section-title">子どもたちの「できた！」を大切に</h2>
           <p className="section-lead">
-            ペラペラスタジオは、児童発達支援・放課後等デイサービスとして、子どもたち一人ひとりの個性を大切にしながら、
+            児童発達支援・放課後等デイサービスとして、子どもたち一人ひとりの個性を大切にしながら、
             将来につながる力を育てています。私たちは、単に子どもを預かる場所ではありません。
             英語、運動、コミュニケーション、社会性、そして自己肯定感。
             未来へ向かって力強く歩いていくために必要な力を、日々の活動を通して育てています。
@@ -95,15 +91,11 @@ export default function HomePage() {
 
       <RepresentativeMessage />
 
-      {/* ───── 校舎紹介 ───── */}
+      {/* ───── スタジオ紹介 ───── */}
       <section className="section">
         <div className="container">
           <p className="eyebrow">CAMPUS</p>
-          <h2 className="section-title">校舎紹介</h2>
-          <p className="section-lead">
-            ペラペラスタジオには、特色の異なる2つの校舎があります。お子さまに合った環境をお選びいただけます。
-            児童募集中。見学・体験を随時受け付けています。
-          </p>
+          <h2 className="section-title">スタジオ紹介</h2>
           <div className="card-grid card-grid--2">
             {CAMPUSES.map((c) => (
               <article key={c.name} className="plan-card campus-card">
@@ -142,24 +134,6 @@ export default function HomePage() {
                         <strong>{p.title}</strong>
                         <span>{p.text}</span>
                       </li>
-                    ))}
-                  </ul>
-                )}
-
-                {c.activities && (
-                  <p className="campus-card__activities">
-                    {c.activities.map((a) => (
-                      <span key={a} className="chip">
-                        {a}
-                      </span>
-                    ))}
-                  </p>
-                )}
-
-                {c.points && (
-                  <ul className="plan-card__points">
-                    {c.points.map((pt) => (
-                      <li key={pt}>{pt}</li>
                     ))}
                   </ul>
                 )}
@@ -234,7 +208,7 @@ export default function HomePage() {
       <PreviewSection
         eyebrow="ABOUT US"
         title="私たちについて"
-        image="/images/company/cover-photo.png"
+        image="/images/company/about-room.png"
         side="left"
         to="/about"
         cta="私たちについて"
@@ -261,13 +235,13 @@ export default function HomePage() {
       <PreviewSection
         eyebrow="COUNSELING"
         title="こころの相談室"
-        image="/images/services/support.svg"
+        image="/images/services/counseling-room.png"
         side="left"
         to="/counseling"
         cta="こころの相談室を見る"
       >
-        ママ、パパ、ご家族のための心のサポートルーム。家族支援カウンセラー・保育士の資格を持つカウンセラーが、
-        対面・オンラインで子育ての不安や家族の悩みに寄り添います。ペアレントトレーニング・トライアルカウンセリングも実施中です。
+        ママ、パパ、ご家族のための心のサポートルーム。家族支援カウンセラー・保育士の資格を持つ心理学カウンセラーが、
+        対面・オンラインで子育ての不安や家族の悩みに寄り添います。ペアレントトレーニングも実施中です。
       </PreviewSection>
 
       {/* ───── 成長事例 プレビュー ───── */}

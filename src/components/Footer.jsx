@@ -12,7 +12,7 @@ export default function Footer() {
           <p className="footer__tagline">{SITE.catch}</p>
           <p className="footer__addr">{SITE.company}</p>
           <p className="footer__note">{SITE.serviceLabel}</p>
-          <p className="footer__note">円山校 ／ 宮の森校（{SITE.area}）</p>
+          <p className="footer__note">円山ベース ／ 宮の森ベース（{SITE.area}）</p>
           <p className="footer__tel">
             <a href={`tel:${CONTACT.telHref}`}>TEL {CONTACT.tel}</a>
           </p>
@@ -37,7 +37,7 @@ export default function Footer() {
         <div className="footer__contact">
           <h3>見学・体験受付中</h3>
           <p>
-            英語イマージョンと運動療育で、子どもたちの「できた！」を育てます。
+            英語イマージョンと運動で、子どもたちの「できた！」を育てます。
             まずはお気軽に見学へお越しください。
           </p>
           <Link to="/contact" className="btn btn--primary btn--block">

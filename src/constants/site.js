@@ -1,6 +1,6 @@
 // サイト共通の事実情報（合同会社ペラペラスタジオ）。
 // ※ 連絡先（住所・電話）は確定情報が未提供のため本文に出さず、確定後に差し替える（伏せる方針）。
-//    校舎の所在地・電話は確定後に CAMPUSES と各セクションへ反映する。
+//    スタジオの所在地・電話は確定後に CAMPUSES と各セクションへ反映する。
 
 export const SITE = {
   // 表示ブランド名
@@ -8,7 +8,7 @@ export const SITE = {
   // 正式企業名（フッターのコピーライト等）
   company: '合同会社ペラペラスタジオ',
   nameEn: 'PERAPERA STUDIO',
-  catch: '英語で学び、運動で育ち、自信をつける。',
+  catch: '英語で学び　運動で育ち　自信をつける',
   serviceLabel: '児童発達支援・放課後等デイサービス',
   // 事業エリア（円山・宮の森＝札幌市中央区）
   area: '北海道札幌市中央区',
@@ -92,22 +92,14 @@ export const CURRICULUM = {
   // 資料の日本語版タイムライン（13:30開始の一日の流れ）。
   dayFlow: [
     { time: '13:30', title: '公園', tone: 'coral' },
-    { time: '14:20', title: 'マンツーマンの英語レッスン', tone: 'sky' },
+    { time: '14:20', title: '英語で各教科のレッスン', tone: 'sky' },
     { time: '15:00', title: 'おやつの時間', tone: 'mint' },
     { time: '15:30', title: 'エクササイズとABC SONG', tone: 'sun' },
-    { time: '16:00', title: 'グループ英語レッスン', tone: 'sun' },
-    { time: '16:30', title: 'レゴやカプラなどで英会話と遊び', tone: 'sky' },
+    { time: '16:00', title: '英語でグループレッスン', tone: 'sun' },
+    { time: '16:30', title: '英語でレゴやカプラなどの遊び', tone: 'sky' },
   ],
   aims: {
-    main: '英語での指示を理解し、日常会話で使われる語彙や表現に慣れること。',
-    sub: [
-      '英語で数字（1〜20）をカードを見て識別できるようになること。',
-      '紙にペンや鉛筆を使って書く力を身につけること。',
-    ],
-  },
-  materials: {
-    vocab: '数字、日常で使う簡単な単語',
-    grammar: '特に扱わない',
+    main: 'コミュニケーション、社会性、運動、健康　これらを全て英語で行う。',
   },
 }
 
@@ -136,7 +128,7 @@ export const FEATURES = [
   {
     no: '05',
     title: '継続した支援',
-    text: '未就学のお子さまから小学生まで。成長に合わせながら、長く関わることのできる環境があります。',
+    text: '未就学のお子さまから高校生まで。成長に合わせながら、長く関わることのできる環境があります。',
   },
 ]
 
@@ -166,21 +158,21 @@ function buildMapEmbedUrl(query, { zoom = 17, lat, lng } = {}) {
   return `https://maps.google.com/maps?q=${q}&hl=ja&z=${zoom}&output=embed`
 }
 
-// 校舎ごとの所在地（TEL・メールは SHARED_CONTACT を参照）。
+// スタジオごとの所在地（TEL・メールは SHARED_CONTACT を参照）。
 const CONTACT_MARUYAMA = {
-  campus: '円山校',
+  campus: '円山ベース',
   program: 'ペラペラ ENGLISH BOOT CAMP',
   ...SHARED_CONTACT,
   postal: '〒060-0005',
   postalCode: '060-0005',
-  address: '北海道札幌市中央区北5条西23丁目2-1 第16藤栄ビル 1F',
-  streetAddress: '北5条西23丁目2-1 第16藤栄ビル 1F',
+  address: '北海道札幌市中央区北5条西23丁目2-1 FC Farnest北円山 1F',
+  streetAddress: '北5条西23丁目2-1 FC Farnest北円山 1F',
   // Google Maps: https://maps.app.goo.gl/2pJY7c5ZnUWkgEd5A
   mapEmbedUrl: buildMapEmbedUrl(null, { lat: 43.0634722, lng: 141.3211665, zoom: 18 }),
 }
 
 const CONTACT_MIYANOMORI = {
-  campus: '宮の森校',
+  campus: '宮の森ベース',
   program: 'ペラペラキッズ②スポーツラボ',
   ...SHARED_CONTACT,
   fax: '011-676-5814',
@@ -194,10 +186,10 @@ const CONTACT_MIYANOMORI = {
 // 主たる連絡先（フッター・JSON-LD 用）。
 export const CONTACT = CONTACT_MARUYAMA
 
-// 校舎紹介（円山校・宮の森校）。
+// スタジオ紹介（円山ベース・宮の森ベース）。
 export const CAMPUSES = [
   {
-    name: '円山校',
+    name: '円山ベース',
     program: 'ペラペラ ENGLISH BOOT CAMP',
     programLogo: '/images/home/english-boot-camp-logo.png',
     programLogoAlt: 'ペラペラスタジオ ENGLISH BOOT CAMP',
@@ -221,7 +213,7 @@ export const CAMPUSES = [
     contact: CONTACT_MARUYAMA,
   },
   {
-    name: '宮の森校',
+    name: '宮の森ベース',
     program: 'ペラペラキッズ②スポーツラボ',
     programLogo: '/images/home/sports-lab-logo.png',
     programLogoAlt: 'ペラペラキッズ② スポーツラボ',

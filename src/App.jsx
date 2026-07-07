@@ -6,6 +6,7 @@ import Layout from './components/Layout.jsx'
 const HomePage = lazy(() => import('./pages/HomePage.jsx'))
 const AboutPage = lazy(() => import('./pages/AboutPage.jsx'))
 const SupportPage = lazy(() => import('./pages/SupportPage.jsx'))
+const SpecialPage = lazy(() => import('./pages/SpecialPage.jsx'))
 const CounselingPage = lazy(() => import('./pages/CounselingPage.jsx'))
 const CasesPage = lazy(() => import('./pages/CasesPage.jsx'))
 const BlogPage = lazy(() => import('./pages/BlogPage.jsx'))
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/support" element={<SupportPage />} />
+          <Route path="/special" element={<SpecialPage />} />
           <Route path="/counseling" element={<CounselingPage />} />
           <Route path="/cases" element={<CasesPage />} />
           <Route path="/blog" element={<BlogPage />} />

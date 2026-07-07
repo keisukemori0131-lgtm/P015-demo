@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import DocumentMeta from '../components/DocumentMeta.jsx'
 import PageHero from '../components/PageHero.jsx'
-import MemberList from '../components/MemberList.jsx'
+import { publicUrl } from '../lib/publicUrl.js'
 import { SHARED_CONTACT } from '../constants/site.js'
 
-// ペラペラ こころの相談室（円山校 カウンセリング部）。チラシより。
+// ペラペラ こころの相談室（円山ベース カウンセリング部）。チラシより。
 const TAGS = ['発達支援', '家族療法', 'チャイルドケア']
 
 const WORRIES = [
@@ -38,6 +38,12 @@ const PARENT_TRAINING = [
   '心の安定を育む関わりの実践方法',
 ]
 
+const ROOM_PHOTOS = [
+  { src: '/images/services/counseling-room-01.png', alt: '観葉植物と大きな窓のある相談室' },
+  { src: '/images/services/counseling-room-02.png', alt: 'ソファのあるあたたかな相談スペース' },
+  { src: '/images/services/counseling-room-03.png', alt: '自然光がやわらかく差し込む相談室' },
+]
+
 export default function CounselingPage() {
   return (
     <>
@@ -49,8 +55,7 @@ export default function CounselingPage() {
           <p className="eyebrow">COUNSELING</p>
           <h2 className="section-title">ママ、パパ、ご家族のための心のサポートルーム</h2>
           <p className="section-lead">
-            「ペラペラ こころの相談室」は、ペラペラ ENGLISH BOOT CAMP（円山校）のカウンセリング部です。
-            安心して相談できる場所で、子どもと家族の心をサポートします。
+            「ペラペラ こころの相談室」は、安心して相談できる場所で、子どもと家族の心をサポートします。
           </p>
           <p className="counsel-tags">
             {TAGS.map((t) => (
@@ -73,14 +78,6 @@ export default function CounselingPage() {
       </section>
 
       <section className="section section--alt">
-        <div className="container container--narrow">
-          <p className="eyebrow">COUNSELOR</p>
-          <h2 className="section-title">カウンセラーのご紹介</h2>
-          <MemberList limit={5} />
-        </div>
-      </section>
-
-      <section className="section">
         <div className="container">
           <div className="card-grid card-grid--2">
             <article className="plan-card">
@@ -107,6 +104,28 @@ export default function CounselingPage() {
         </div>
       </section>
 
+      <section className="section">
+        <div className="container">
+          <p className="eyebrow">ROOM</p>
+          <h2 className="section-title">相談室のご紹介</h2>
+          <p className="section-lead">
+            観葉植物に囲まれた、あたたかく落ち着ける空間です。安心してお話しいただけるお部屋をご用意しています。
+          </p>
+          <div className="room-gallery">
+            {ROOM_PHOTOS.map((photo) => (
+              <figure key={photo.src} className="room-gallery__item">
+                <img
+                  src={publicUrl(photo.src)}
+                  alt={photo.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="section section--alt">
         <div className="container container--narrow">
           <p className="eyebrow">PARENT TRAINING</p>
@@ -123,7 +142,6 @@ export default function CounselingPage() {
           </div>
           <p className="section-lead">
             自分自身の心も大切にしながら、お子様の成長を一緒に支えていきましょう。
-            <strong>トライアルカウンセリングも実施中</strong>です。
           </p>
         </div>
       </section>

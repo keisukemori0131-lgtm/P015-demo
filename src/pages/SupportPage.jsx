@@ -17,8 +17,8 @@ const SIGNS = [
 
 const PILLARS = [
   {
-    title: '英語に親しむ',
-    text: '外国人スタッフと一緒に活動しながら、自然な形で英語に触れます。英語を勉強としてではなく、遊びやコミュニケーションの中で経験していきます。',
+    title: '知性を伸ばす',
+    text: '実験・クラフト・サイエンスなど、日常の知育を英語で行っています。',
   },
   {
     title: '身体を育てる',
@@ -76,11 +76,11 @@ export default function SupportPage() {
       </section>
 
       <section className="section">
-        <div className="container">
+        <div className="container container--narrow">
           <p className="eyebrow">PROGRAM</p>
           <h2 className="section-title">ペラペラスタジオの児童発達支援</h2>
           <p className="section-lead">
-            英語・運動・社会性・成功体験。4つの柱を通して、お子さま一人ひとりの「できるようになる力」を育てます。
+            知性・運動・社会性・成功体験。4つの柱を通して、お子さま一人ひとりの「できるようになる力」を育てます。
           </p>
           <div className="pillar-grid">
             {PILLARS.map((p) => (

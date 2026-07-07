@@ -1,24 +1,13 @@
-import { publicUrl } from '../lib/publicUrl.js'
 import { REPRESENTATIVE } from '../constants/site.js'
 
 // 代表からのご挨拶（トップ・OUR STUDIO 直下）。
 export default function RepresentativeMessage() {
-  const { name, image, imageAlt, profile, message } = REPRESENTATIVE
+  const { name, profile, message } = REPRESENTATIVE
 
   return (
     <section className="section section--alt">
       <div className="container">
-        <div className="rep-message">
-          <div className="rep-message__media">
-            <img
-              src={publicUrl(image)}
-              alt={imageAlt}
-              width={480}
-              height={640}
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
+        <div className="rep-message rep-message--no-media">
           <div className="rep-message__body">
             <p className="eyebrow">MESSAGE</p>
             <h2 className="section-title rep-message__title">代表からのご挨拶</h2>

@@ -1,6 +1,6 @@
 import { CAMPUSES, SHARED_CONTACT } from '../constants/site.js'
 
-// 共通の電話・メールをまとめ、校舎ごとは住所（とFAX）のみ表示。
+// 共通の電話・メールをまとめ、スタジオごとは住所（とFAX）のみ表示。
 export default function ContactAside({ note = '見学・体験は随時受け付けています。' }) {
   return (
     <aside className="contact-side">

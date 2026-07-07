@@ -5,6 +5,7 @@ const BREADCRUMB_LABELS = {
   '/': 'ホーム',
   '/about': '私たちについて',
   '/support': '児童発達支援',
+  '/special': '独自の取り組み',
   '/counseling': 'こころの相談室',
   '/cases': '成長事例',
   '/blog': 'コラム',
@@ -16,7 +17,7 @@ function campusChildCare(campus, siteUrl, orgId) {
   const c = campus.contact
   return {
     '@type': 'ChildCare',
-    '@id': `${siteUrl}/#${campus.name === '円山校' ? 'maruyama' : 'miyanomori'}`,
+    '@id': `${siteUrl}/#${campus.name === '円山ベース' ? 'maruyama' : 'miyanomori'}`,
     name: `${SITE.name} ${campus.name}`,
     alternateName: campus.program,
     parentOrganization: { '@id': orgId },
