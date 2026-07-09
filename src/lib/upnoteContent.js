@@ -77,16 +77,16 @@ export function getContentThumb(item) {
   return getContentImageUrls(item)[0] || ''
 }
 
-// members（役員・従業員）— UpNote data フィールドキー（日本語優先 + 互換キー）
+// members（役員・従業員）— UpNote data フィールドキー（日本語 + 公開APIスラッグ + 互換キー）
 export const MEMBER_DATA_KEYS = {
-  name: ['名前', 'name', 'member_name', 'staff_name', 'article_title'],
-  nameRomaji: ['名前ローマ字', 'name_romaji', 'name_roman', 'romaji', 'english_name'],
-  position: ['役職', 'position', 'role', 'job_title', 'subtitle'],
+  name: ['名前', 'member_name', 'name', 'staff_name', 'article_title'],
+  nameRomaji: ['名前ローマ字', 'member_name_romaji', 'name_romaji', 'name_roman', 'romaji', 'english_name'],
+  position: ['役職', 'job_title', 'position', 'role', 'subtitle'],
   department: ['所属部署', 'department', 'division', 'affiliation'],
-  duties: ['担当業務', 'duties', 'responsibility', 'job_description'],
-  career: ['経歴', 'career', 'history', 'bio', 'body', 'body_html'],
-  qualifications: ['資格', 'qualifications', 'qualification', 'credentials', 'tag_name'],
-  comment: ['コメント', 'comment', 'message', 'lead', 'summary'],
+  duties: ['担当業務', 'responsible_tasks', 'duties', 'responsibility', 'job_description'],
+  career: ['経歴', 'career_history', 'career', 'history', 'bio', 'body', 'body_html'],
+  qualifications: ['資格', 'certifications', 'qualifications', 'qualification', 'credentials', 'tag_name'],
+  comment: ['コメント', 'comment_text', 'comment', 'message', 'lead', 'summary'],
 }
 
 function pickDataField(data, keys) {

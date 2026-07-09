@@ -27,6 +27,13 @@ async function tryFetch(url) {
   }
 }
 
+function extractLocalItems(json) {
+  if (Array.isArray(json)) return json
+  if (Array.isArray(json?.items)) return json.items
+  if (Array.isArray(json?.data?.items)) return json.data.items
+  return []
+}
+
 async function loadAll(slug) {
   const candidates = [
     publicUrl(`/upnote-local/${slug}.json`),
@@ -34,7 +41,7 @@ async function loadAll(slug) {
   ]
   for (const url of candidates) {
     const json = await tryFetch(url)
-    if (json) return Array.isArray(json) ? json : json.items || []
+    if (json) return extractLocalItems(json)
   }
   console.warn(`[upnote-local] ${slug} のローカル JSON が見つかりません（${candidates.join(' , ')}）。`)
   const err = new Error(`LOCAL_NOT_FOUND: ${slug}`)

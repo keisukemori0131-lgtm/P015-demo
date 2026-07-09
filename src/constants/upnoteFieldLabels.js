@@ -44,7 +44,15 @@ export const UPNOTE_FIELD_LABELS = {
   department: '所属部署',
   duties: '担当業務',
   career: '経歴',
-  comment: 'コメント',
+  comment: 'メッセージ',
+  comment_text: 'メッセージ',
+  career_history: '経歴',
+  certifications: '資格',
+  responsible_tasks: '担当業務',
+  member_name: '名前',
+  member_name_romaji: '名前ローマ字',
+  member_name_kana: '名前（かな）',
+  job_title: '役職',
 }
 
 export function labelForField(key) {
