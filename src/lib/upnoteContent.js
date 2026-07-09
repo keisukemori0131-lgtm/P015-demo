@@ -77,25 +77,135 @@ export function getContentThumb(item) {
   return getContentImageUrls(item)[0] || ''
 }
 
-// members（役員・従業員）向けヘルパー
+// members（役員・従業員）— UpNote data フィールドキー（日本語優先 + 互換キー）
+export const MEMBER_DATA_KEYS = {
+  name: ['名前', 'name', 'member_name', 'staff_name', 'article_title'],
+  nameRomaji: ['名前ローマ字', 'name_romaji', 'name_roman', 'romaji', 'english_name'],
+  position: ['役職', 'position', 'role', 'job_title', 'subtitle'],
+  department: ['所属部署', 'department', 'division', 'affiliation'],
+  duties: ['担当業務', 'duties', 'responsibility', 'job_description'],
+  career: ['経歴', 'career', 'history', 'bio', 'body', 'body_html'],
+  qualifications: ['資格', 'qualifications', 'qualification', 'credentials', 'tag_name'],
+  comment: ['コメント', 'comment', 'message', 'lead', 'summary'],
+}
+
+function pickDataField(data, keys) {
+  for (const k of keys) {
+    const v = data?.[k]
+    if (v != null && v !== '') return typeof v === 'string' ? v.trim() : v
+  }
+  return ''
+}
+
+export function parseMemberListField(value) {
+  if (!value) return []
+  return String(value)
+    .split(/[\n,、/／|]/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+}
+
+function stripHtml(html) {
+  if (!html) return ''
+  return String(html)
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function truncateText(text, max = 140) {
+  if (!text || text.length <= max) return text
+  return `${text.slice(0, max).replace(/\s+\S*$/, '')}…`
+}
+
+const HTML_RE = /<[a-z][\s\S]*>/i
+
+export function isHtmlContent(value) {
+  return typeof value === 'string' && HTML_RE.test(value)
+}
+
+/** UpNote members 1件を表示用オブジェクトに正規化 */
+export function normalizeMemberItem(item) {
+  const data = item?.data || {}
+  const name = pickDataField(data, MEMBER_DATA_KEYS.name)
+  const nameRomaji = pickDataField(data, MEMBER_DATA_KEYS.nameRomaji)
+  const positionRaw = pickDataField(data, MEMBER_DATA_KEYS.position)
+  const department = pickDataField(data, MEMBER_DATA_KEYS.department)
+  const duties = pickDataField(data, MEMBER_DATA_KEYS.duties)
+  const career = pickDataField(data, MEMBER_DATA_KEYS.career)
+  const qualificationsRaw = pickDataField(data, MEMBER_DATA_KEYS.qualifications)
+  const comment = pickDataField(data, MEMBER_DATA_KEYS.comment)
+  const qualifications = parseMemberListField(qualificationsRaw)
+  const positions = parseMemberListField(positionRaw)
+  const displayName = nameRomaji || name || item?.title || '（名前未設定）'
+
+  const summary = comment ? truncateText(stripHtml(comment), 140) : ''
+
+  const hasDetail =
+    Boolean(stripHtml(career)) ||
+    Boolean(stripHtml(comment)) ||
+    qualifications.length > 0 ||
+    Boolean(duties)
+
+  return {
+    id: item.id,
+    name,
+    nameRomaji,
+    displayName,
+    positions: positions.length ? positions : positionRaw ? [positionRaw] : [],
+    department,
+    duties,
+    career,
+    qualifications,
+    comment,
+    summary,
+    hasDetail,
+    thumb: getContentThumb(item),
+  }
+}
+
+// members（役員・従業員）向けヘルパー — 正規化結果のショートカット
 export function getMemberName(item) {
-  return getContentTitle(item)
+  const m = normalizeMemberItem(item)
+  return m.name || m.displayName
+}
+
+export function getMemberNameRomaji(item) {
+  return normalizeMemberItem(item).nameRomaji
 }
 
 export function getMemberRole(item) {
-  return getContentSubtitle(item)
+  const m = normalizeMemberItem(item)
+  return m.positions.join('、') || ''
+}
+
+export function getMemberDepartment(item) {
+  return normalizeMemberItem(item).department
+}
+
+export function getMemberDuties(item) {
+  return normalizeMemberItem(item).duties
+}
+
+export function getMemberCareer(item) {
+  return normalizeMemberItem(item).career
+}
+
+export function getMemberComment(item) {
+  return normalizeMemberItem(item).comment
 }
 
 export function getMemberLead(item) {
-  return getContentLead(item)
+  const m = normalizeMemberItem(item)
+  return m.comment || m.duties
 }
 
 export function getMemberBody(item) {
-  return getContentBody(item)
+  return normalizeMemberItem(item).career
 }
 
 export function getMemberQualifications(item) {
-  return getContentTags(item)
+  return normalizeMemberItem(item).qualifications
 }
 
 // モーダル上段スロットで描画済み → 詳細情報グリッドから除外するキー（R14-3a）

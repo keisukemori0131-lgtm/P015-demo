@@ -31,6 +31,20 @@ export const UPNOTE_FIELD_LABELS = {
   event_date: '開催日',
   position: '役職',
   qualifications: '資格',
+  名前: '名前',
+  名前ローマ字: '名前ローマ字',
+  役職: '役職',
+  所属部署: '所属部署',
+  担当業務: '担当業務',
+  経歴: '経歴',
+  資格: '資格',
+  コメント: 'メッセージ',
+  name: '名前',
+  name_romaji: '名前ローマ字',
+  department: '所属部署',
+  duties: '担当業務',
+  career: '経歴',
+  comment: 'コメント',
 }
 
 export function labelForField(key) {

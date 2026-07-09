@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import DocumentMeta from '../components/DocumentMeta.jsx'
 import PageHero from '../components/PageHero.jsx'
 import ValueCard from '../components/ValueCard.jsx'
+import StaffSection from '../components/StaffSection.jsx'
 import { PROMISES } from '../constants/site.js'
 
 // 私たちについて（理念）+ 私たちの願い + 私たちの約束（2026）。
@@ -48,7 +49,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section section--alt">
+      <section id="staff" className="section section--alt">
+        <div className="container container--narrow">
+          <p className="eyebrow">STAFF</p>
+          <h2 className="section-title">スタッフ紹介</h2>
+          <StaffSection />
+        </div>
+      </section>
+
+      <section className="section">
         <div className="container container--narrow">
           <p className="eyebrow">OUR BELIEF</p>
           <h2 className="section-title">私たちが大切にしていること</h2>
@@ -63,7 +72,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section--alt">
         <div className="container container--narrow">
           <p className="eyebrow">OUR WISH</p>
           <h2 className="section-title">私たちの願い</h2>
@@ -109,7 +118,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section section--alt">
+      <section className="section">
         <div className="container container--narrow">
           <p className="eyebrow">OUR PROMISE</p>
           <h2 className="section-title">私たちの約束</h2>

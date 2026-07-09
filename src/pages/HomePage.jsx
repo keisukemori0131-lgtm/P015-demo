@@ -5,8 +5,6 @@ import Logo from '../components/Logo.jsx'
 import ContentCard from '../components/ContentCard.jsx'
 import ContentDetailModal from '../components/ContentDetailModal.jsx'
 import { Loading, EmptyMsg } from '../components/StateMessage.jsx'
-import ValueCard from '../components/ValueCard.jsx'
-import RepresentativeMessage from '../components/RepresentativeMessage.jsx'
 import CurriculumExample from '../components/CurriculumExample.jsx'
 import { publicUrl } from '../lib/publicUrl.js'
 import { useContentList } from '../lib/useUpNote.js'
@@ -89,8 +87,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <RepresentativeMessage />
-
       {/* ───── スタジオ紹介 ───── */}
       <section className="section">
         <div className="container">
@@ -125,18 +121,13 @@ export default function HomePage() {
                     <p className="plan-card__target">{c.program}</p>
                   </>
                 )}
-                <p>{c.text}</p>
-
-                {c.pillars && (
-                  <ul className="campus-card__pillars">
-                    {c.pillars.map((p) => (
-                      <li key={p.title}>
-                        <strong>{p.title}</strong>
-                        <span>{p.text}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <div className="campus-card__text">
+                  {Array.isArray(c.text) ? (
+                    c.text.map((para) => <p key={para}>{para}</p>)
+                  ) : (
+                    <p>{c.text}</p>
+                  )}
+                </div>
 
                 {c.contact && (
                   <p className="campus-card__contact">
@@ -169,16 +160,38 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ───── 5つの特徴 ───── */}
+      {/* ───── 特徴 ───── */}
       <section className="section section--alt">
-        <div className="container">
+        <div className="container container--narrow">
           <p className="eyebrow">FEATURES</p>
-          <h2 className="section-title">ペラペラスタジオの5つの特徴</h2>
-          <div className="value-grid value-grid--stack">
+          <h2 className="section-title">ペラペラスタジオの特徴</h2>
+          <div className="feature-story">
             {FEATURES.map((f) => (
-              <ValueCard key={f.no} no={f.no} title={f.title}>
-                <p>{f.text}</p>
-              </ValueCard>
+              <article key={f.title} className="feature-story__item">
+                <h3 className="feature-story__title">{f.title}</h3>
+                {f.paragraphs?.map((para) => (
+                  <p key={para} className="feature-story__text">
+                    {para}
+                  </p>
+                ))}
+                {f.list && (
+                  <ul className="feature-story__list">
+                    {f.list.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                )}
+                {f.phrases && (
+                  <p className="feature-story__phrases">
+                    {f.phrases.map((phrase) => (
+                      <span key={phrase} className="chip">
+                        {phrase}
+                      </span>
+                    ))}
+                  </p>
+                )}
+                {f.closing && <p className="feature-story__text">{f.closing}</p>}
+              </article>
             ))}
           </div>
         </div>
