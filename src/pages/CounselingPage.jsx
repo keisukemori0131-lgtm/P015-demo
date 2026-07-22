@@ -40,8 +40,8 @@ const PARENT_TRAINING = [
 
 const ROOM_PHOTOS = [
   { src: '/images/services/counseling-room-01.png', alt: '観葉植物と大きな窓のある相談室' },
-  { src: '/images/services/counseling-room-02.png', alt: 'ソファのあるあたたかな相談スペース' },
-  { src: '/images/services/counseling-room-03.png', alt: '自然光がやわらかく差し込む相談室' },
+  { src: '/images/services/counseling-room-02.png', alt: '箱庭療法の砂箱とミニチュアが並ぶ相談室' },
+  { src: '/images/services/counseling-room-03.png', alt: '箱庭療法で使う動物や人形のミニチュアたち' },
 ]
 
 export default function CounselingPage() {
@@ -109,7 +109,7 @@ export default function CounselingPage() {
           <p className="eyebrow">ROOM</p>
           <h2 className="section-title">相談室のご紹介</h2>
           <p className="section-lead">
-            観葉植物に囲まれた、あたたかく落ち着ける空間です。安心してお話しいただけるお部屋をご用意しています。
+            表現力の未発達なお子様へのカウンセリングには、箱庭療法もしています。ペラペラスタジオのカウンセリング部門は、保護者の方だけでなく子どもたちにも手厚く実践しております。
           </p>
           <div className="room-gallery">
             {ROOM_PHOTOS.map((photo) => (

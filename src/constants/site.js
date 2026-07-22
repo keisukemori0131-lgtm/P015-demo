@@ -11,7 +11,7 @@ export const SITE = {
   catch: '英語で学び　運動で育ち　自信をつける',
   serviceLabel: '児童発達支援・放課後等デイサービス',
   // 事業エリア（円山・宮の森＝札幌市中央区）
-  area: '北海道札幌市中央区',
+  area: '札幌市中央区',
   addressLocality: '札幌市中央区',
   // 本番オリジン。確定ドメインを VITE_SITE_URL で必ず上書きする（HANDOFF 参照）
   url: import.meta.env.VITE_SITE_URL || 'https://peraperastudio.jp',
@@ -181,8 +181,8 @@ const CONTACT_MARUYAMA = {
   ...SHARED_CONTACT,
   postal: '〒060-0005',
   postalCode: '060-0005',
-  address: '北海道札幌市中央区北5条西23丁目2-1 FC Farnest北円山 1F',
-  streetAddress: '北5条西23丁目2-1 FC Farnest北円山 1F',
+  address: '札幌市中央区北5条西23丁目2-1 FC Farnest北円山',
+  streetAddress: '北5条西23丁目2-1 FC Farnest北円山',
   // Google Maps: https://maps.app.goo.gl/2pJY7c5ZnUWkgEd5A
   mapEmbedUrl: buildMapEmbedUrl(null, { lat: 43.0634722, lng: 141.3211665, zoom: 18 }),
 }
@@ -194,9 +194,9 @@ const CONTACT_MIYANOMORI = {
   fax: '011-676-5814',
   postal: '〒064-0952',
   postalCode: '064-0952',
-  address: '札幌市中央区宮の森二条17丁目9-10',
-  streetAddress: '宮の森二条17丁目9-10',
-  mapEmbedUrl: buildMapEmbedUrl('〒064-0952 札幌市中央区宮の森二条17丁目9-10'),
+  address: '札幌市中央区宮の森２条17丁目9-10',
+  streetAddress: '宮の森２条17丁目9-10',
+  mapEmbedUrl: buildMapEmbedUrl('〒064-0952 札幌市中央区宮の森２条17丁目9-10'),
 }
 
 // 主たる連絡先（フッター・JSON-LD 用）。
@@ -209,7 +209,15 @@ export const CAMPUSES = [
     program: 'ペラペラ ENGLISH BOOT CAMP',
     programLogo: '/images/home/english-boot-camp-logo.png',
     programLogoAlt: 'ペラペラスタジオ ENGLISH BOOT CAMP',
-    text: '子どもたちの「大好き」を発見するための知育活動は、すべて英語でおこないます。',
+    text: [
+      '子どもたちの「大好き」を発見するための知育活動は、すべて英語で行います。',
+      '英語は目的ではなく、世界を広げる入り口です。',
+      'これからの時代に必要なのは、知識を覚える力だけではありません。',
+      '自分で考え、自分の言葉で伝え、新しいことに挑戦する力が、子どもたちの未来を切り拓きます。それらを全て英語で実践していきます。',
+      '円山校では、知育とコミュニケーションを組み合わせた活動を通して、「学ぶことが楽しい」と感じられる環境を大切にしています。',
+      '毎日の小さな発見が、自信となり、夢へ向かう大きな一歩になっていきます。',
+      'それが、ペラペラ ENGLISH BOOT CAMPが大切にしている学びの療育スタイルです。',
+    ],
     points: ['英語を楽しく学べる', '園や自宅への送迎あり', '見学・体験受付中'],
     contact: CONTACT_MARUYAMA,
   },

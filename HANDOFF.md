@@ -56,7 +56,7 @@ VITE_GOOGLE_FORM_EMBED_URL=https://docs.google.com/forms/d/e/xxxx/viewform?embed
 
 | # | 項目 | 状況・対応 |
 |---|------|-----------|
-| 1 | **連絡先（チラシより反映済み）** | 2枚のチラシから両校の連絡先を `src/constants/site.js`（`CONTACT_MARUYAMA` / `CONTACT_MIYANOMORI`）へ記載。フッター・`/contact`・JSON-LD・ホームスタジオ紹介に表示。<br>・**円山ベース**: TEL 080-7560-6611／Mail englishbootcampp@gmail.com／〒060-0005 札幌市中央区北5条西23丁目2-1 FCFarnest北円山<br>・**宮の森ベース**: TEL 080-7560-6611／FAX 011-676-5814／Mail englishbootcampp@gmail.com／〒064-0952 札幌市中央区宮の森二条17丁目9-10 |
+| 1 | **連絡先（チラシより反映済み）** | 2枚のチラシから両校の連絡先を `src/constants/site.js`（`CONTACT_MARUYAMA` / `CONTACT_MIYANOMORI`）へ記載。フッター・`/contact`・JSON-LD・ホームスタジオ紹介に表示。<br>・**円山ベース**: TEL 080-7560-6611／Mail englishbootcampp@gmail.com／〒060-0005 札幌市中央区北5条西23丁目2-1 FCFarnest北円山<br>・**宮の森ベース**: TEL 080-7560-6611／FAX 011-676-5814／Mail englishbootcampp@gmail.com／〒064-0952 札幌市中央区宮の森２条17丁目9-10 |
 | 2 | **円山ベースの郵便番号（確認済み）** | 「こころの相談室」チラシに **〒060-0005** と明記 → 060-0005 で確定（最初の英語チラシの 006-0005 は誤記）。住所は「FC Farnest北円山 1階」。 |
 | 3 | **メールの綴り（確認済み）** | 「こころの相談室」チラシで `englishbootcampp@gmail.com` を確認 → これで確定（宮の森チラシも同一とみなす）。 |
 | 3b | **こころの相談室（`/counseling`）** | 円山ベースのカウンセリング部「ペラペラ こころの相談室」をチラシより新規ページ化。発達支援/家族療法/チャイルドケア、相談内容・カウンセリング内容・ペアレントトレーニング・トライアルを掲載。連絡先は円山ベースと共通。 |
