@@ -244,12 +244,26 @@ export default function HomePage() {
         英語・運動・社会性・成功体験を通して、小学校入学に向けた力を育てます。
       </PreviewSection>
 
+      {/* ───── 放課後等デイサービス プレビュー ───── */}
+      <PreviewSection
+        eyebrow="AFTER SCHOOL"
+        title="放課後等デイサービス"
+        image="/images/services/cover-photo.png"
+        side="left"
+        to="/after-school"
+        cta="放課後等デイサービスを見る"
+      >
+        発達に特性のある小学生から高校生までのお子さまを対象に、一人ひとりの「好き」や「得意」を大切にした支援を行います。
+        英語・運動・知育を通して、自信と社会性を育み、未来へ向かう力を伸ばします。
+      </PreviewSection>
+
       {/* ───── こころの相談室 プレビュー ───── */}
       <PreviewSection
         eyebrow="COUNSELING"
         title="こころの相談室"
         image="/images/services/counseling-room.png"
-        side="left"
+        side="right"
+        altBg
         to="/counseling"
         cta="こころの相談室を見る"
       >
@@ -262,8 +276,7 @@ export default function HomePage() {
         eyebrow="CASES"
         title="成長事例"
         image="/images/pricing/cover-photo.png"
-        side="right"
-        altBg
+        side="left"
         to="/cases"
         cta="成長事例を見る"
       >

@@ -281,9 +281,12 @@ ul {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 .btn--nav-cta {
-  padding: 0.6em 1.4em;
+  padding: 0.45em 1em;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
   background: var(--sky-deep);
   color: #fff;
+  white-space: nowrap;
 }
 .header--overlay .btn--nav-cta {
   background: #fff;
@@ -857,6 +860,17 @@ ul {
   gap: 1.2rem;
   margin-top: 2.4rem;
 }
+.pillar-grid--after-school {
+  grid-template-columns: 1fr 1fr;
+}
+.pillar-grid--after-school .pillar-card--wide {
+  grid-column: 1 / -1;
+}
+@media (max-width: 600px) {
+  .pillar-grid--after-school {
+    grid-template-columns: 1fr;
+  }
+}
 .pillar-card {
   background: var(--cream);
   border: 1px solid var(--line);
@@ -886,10 +900,13 @@ ul {
   color: var(--sky-deep);
 }
 .pillar-card__text {
-  margin: 0;
+  margin: 0 0 0.7em;
   color: var(--ink-soft);
   font-size: 0.97rem;
   line-height: 1.8;
+}
+.pillar-card__text:last-child {
+  margin-bottom: 0;
 }
 
 /* スタッフ紹介（members） */
@@ -2762,7 +2779,7 @@ ul {
   }
 }
 /* ヘッダーナビ：項目数が多いため早めにハンバーガーへ切替 */
-@media (max-width: 1180px) {
+@media (max-width: 1280px) {
   .header__burger {
     display: flex;
   }

@@ -3,7 +3,7 @@ import DocumentMeta from '../components/DocumentMeta.jsx'
 import PageHero from '../components/PageHero.jsx'
 import FaqList from '../components/FaqList.jsx'
 
-// 児童発達支援（・放課後等デイサービス）。
+// 児童発達支援（未就学）。
 const SIGNS = [
   '落ち着いて座ることが難しい',
   '集団活動が苦手',
@@ -46,7 +46,7 @@ export default function SupportPage() {
   return (
     <>
       <DocumentMeta />
-      <PageHero title="児童発達支援・放課後等デイサービス" image="/images/services/cover.svg" />
+      <PageHero title="児童発達支援" image="/images/services/cover.svg" />
 
       <section className="section">
         <div className="container container--narrow">

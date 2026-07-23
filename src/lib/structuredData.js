@@ -5,6 +5,7 @@ const BREADCRUMB_LABELS = {
   '/': 'ホーム',
   '/about': '私たちについて',
   '/support': '児童発達支援',
+  '/after-school': '放課後等デイサービス',
   '/special': '独自の取り組み',
   '/counseling': 'こころの相談室',
   '/cases': '成長事例',
