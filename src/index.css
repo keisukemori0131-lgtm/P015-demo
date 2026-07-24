@@ -2217,10 +2217,6 @@ ul {
   font-weight: 700;
   text-decoration: none;
 }
-.contact-side__fax {
-  font-size: 0.9rem;
-  color: var(--ink-soft);
-}
 .contact-side__addr {
   font-size: 0.9rem;
   color: var(--ink-soft);
