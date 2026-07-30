@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import Logo from './Logo.jsx'
 import { MAIN_NAV, CTA_NAV } from '../constants/nav.js'
@@ -33,6 +34,11 @@ export default function Header() {
     }
   }, [open])
 
+  // ルート遷移時はメニューを閉じる
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
   // Esc で閉じる
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && setOpen(false)
@@ -63,6 +69,7 @@ export default function Header() {
           className={`header__burger${open ? ' is-open' : ''}`}
           aria-label={open ? 'メニューを閉じる' : 'メニューを開く'}
           aria-expanded={open}
+          aria-controls="global-nav"
           onClick={() => setOpen((v) => !v)}
         >
           <span />
@@ -70,7 +77,7 @@ export default function Header() {
           <span />
         </button>
 
-        <nav className={`nav${open ? ' is-open' : ''}`} aria-label="グローバルナビゲーション">
+        <nav id="global-nav" className={`nav${open ? ' is-open' : ''}`} aria-label="グローバルナビゲーション">
           <ul className="nav__list">
             {MAIN_NAV.map((item) => (
               <li key={item.to}>
@@ -101,8 +108,15 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-        {open && <div className="nav__overlay" onClick={closeMenu} aria-hidden="true" />}
       </div>
+
+      {/* header の backdrop-filter 外へ出し、画面全体を覆う（メニュー外タップで閉じる） */}
+      {open
+        ? createPortal(
+            <div className="nav__overlay is-visible" onClick={closeMenu} aria-hidden="true" />,
+            document.body,
+          )
+        : null}
     </header>
   )
 }
