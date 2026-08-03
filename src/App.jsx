@@ -11,6 +11,7 @@ const SpecialPage = lazy(() => import('./pages/SpecialPage.jsx'))
 const CounselingPage = lazy(() => import('./pages/CounselingPage.jsx'))
 const CasesPage = lazy(() => import('./pages/CasesPage.jsx'))
 const BlogPage = lazy(() => import('./pages/BlogPage.jsx'))
+const ColumnDetailPage = lazy(() => import('./pages/ColumnDetailPage.jsx'))
 const NewsPage = lazy(() => import('./pages/NewsPage.jsx'))
 const ContactPage = lazy(() => import('./pages/ContactPage.jsx'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'))
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/counseling" element={<CounselingPage />} />
           <Route path="/cases" element={<CasesPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:id" element={<ColumnDetailPage />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           {/* 旧パス互換（R11-B） */}

@@ -17,7 +17,13 @@ export default function BlogPage() {
             児童発達支援・放課後等デイサービスや、英語・運動を通した子育てのヒントなど、
             子どもたちの成長に役立つ情報をペラペラスタジオの視点でお届けします。
           </p>
-          <ContentListSection slug={CONTENT_TYPE_FOR.blog} emptyLabel={EMPTY_MESSAGES.columns} />
+          {/* R14-3: カードは /blog/:id の記事詳細ページへ遷移（モーダル不使用）。大型フィーチャーカード表示 */}
+          <ContentListSection
+            slug={CONTENT_TYPE_FOR.blog}
+            emptyLabel={EMPTY_MESSAGES.columns}
+            detailBasePath="/blog"
+            cardSize="lg"
+          />
         </div>
       </section>
     </>

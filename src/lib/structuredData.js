@@ -89,6 +89,47 @@ export function buildBreadcrumb(pathname, siteUrl) {
   }
 }
 
+/** 記事詳細ページ用の 3 階層パンくず JSON-LD（ホーム / 一覧 / 記事名・R14-3） */
+export function buildArticleBreadcrumb(siteUrl, listPath, listLabel, articleTitle, articlePath) {
+  const origin = siteUrl.replace(/\/$/, '')
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: origin },
+      { '@type': 'ListItem', position: 2, name: listLabel, item: `${origin}${listPath}` },
+      { '@type': 'ListItem', position: 3, name: articleTitle, item: `${origin}${articlePath}` },
+    ],
+  }
+}
+
+/**
+ * コラム記事の BlogPosting JSON-LD（R14-3。news は NewsArticle、事例は Article）
+ * @param {{ title, description, path, image?, publishedAt?, updatedAt? }} article
+ */
+export function buildBlogPosting(siteUrl, article, type = 'BlogPosting') {
+  const origin = siteUrl.replace(/\/$/, '')
+  const url = `${origin}${article.path}`
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': type,
+    headline: article.title,
+    description: article.description || undefined,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    url,
+    author: { '@type': 'Organization', name: SITE.company },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE.company,
+      logo: { '@type': 'ImageObject', url: `${origin}${publicUrl('/logo-header.png')}` },
+    },
+  }
+  if (article.image) ld.image = [article.image]
+  if (article.publishedAt) ld.datePublished = article.publishedAt
+  if (article.updatedAt) ld.dateModified = article.updatedAt
+  return ld
+}
+
 /** FAQ 一覧から FAQPage スキーマを生成 */
 export function buildFaqPage(items, getQuestion, getAnswer) {
   if (!items?.length) return null

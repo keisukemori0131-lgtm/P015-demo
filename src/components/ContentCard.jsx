@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import {
   getContentTitle,
   getContentLead,
@@ -6,16 +7,23 @@ import {
   formatContentDate,
 } from '../lib/upnoteContent.js'
 
-// 一覧/抜粋カード（R14-3）。概要のみ表示・本文は出さない。押下でモーダルを開く。
-export default function ContentCard({ item, onOpen }) {
+/**
+ * 一覧/抜粋カード（R14-3）。概要のみ表示・本文は出さない。
+ * - `to` があれば <Link> で個別詳細ページへ遷移（新標準・2026-07）
+ * - `to` が無ければ従来どおり <button> でモーダルを開く（既存 news 等の保守用）
+ * - `size="lg"` でサムネイルを大きく見せるフィーチャーカード（コラム一覧用）
+ */
+export default function ContentCard({ item, onOpen, to, size }) {
   const title = getContentTitle(item)
   const lead = getContentLead(item)
   const tags = getContentTags(item)
   const thumb = getContentThumb(item)
   const date = formatContentDate(item)
 
-  return (
-    <button type="button" className="content-card" onClick={() => onOpen(item)}>
+  const className = `content-card${size === 'lg' ? ' content-card--lg' : ''}`
+
+  const inner = (
+    <>
       <span className="content-card__media">
         {thumb ? (
           <img src={thumb} alt={title} loading="lazy" decoding="async" />
@@ -36,7 +44,22 @@ export default function ContentCard({ item, onOpen }) {
         </span>
         <span className="content-card__title">{title}</span>
         {lead && <span className="content-card__lead">{lead}</span>}
+        {size === 'lg' && <span className="content-card__more">続きを読む →</span>}
       </span>
+    </>
+  )
+
+  if (to) {
+    return (
+      <Link className={className} to={to}>
+        {inner}
+      </Link>
+    )
+  }
+
+  return (
+    <button type="button" className={className} onClick={() => onOpen(item)}>
+      {inner}
     </button>
   )
 }

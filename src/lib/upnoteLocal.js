@@ -49,6 +49,19 @@ async function loadAll(slug) {
   throw err
 }
 
+/** ローカル JSON から id 一致の 1 件を返す。無ければ NOT_FOUND（本番 404 と同じ扱い） */
+export async function fetchLocalContentById(slug, id) {
+  const all = slug ? await loadAll(slug) : []
+  const found = all.find((item) => String(item?.id) === String(id))
+  if (!found) {
+    const err = new Error(`NOT_FOUND: ${slug}/${id}`)
+    err.errorCode = 'NOT_FOUND'
+    err.status = 404
+    throw err
+  }
+  return found
+}
+
 export async function fetchLocalContents(slug, options = {}) {
   const all = await loadAll(slug)
   const page = options.page || 1

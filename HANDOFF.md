@@ -12,8 +12,11 @@ React + Vite で生成した提案サイトの引き継ぎメモ。**機械チ�
 > 円山ベースのカウンセリング部「こころの相談室」は `/counseling` を新設。郵便番号 060-0005・メール englishbootcampp@gmail.com は確認済み。
 
 - **Worker 名（重要）**: `p015demo`（`wrangler.jsonc` の `name` と一致。Cloudflare 側も同名で作成すること。違う名前だと別 Worker が自動生成され設定変数が当たらない / P008 2026-05 事故）
-- 技術: React 18 + Vite 6.4 / react-router-dom / react-helmet-async。UpNote は**パターン B 直叩き**（proxy Worker なし）。
-- 連絡方式: **Googleフォーム埋め込み**（YAML `contact.method = Googleフォーム`）。
+- 技術: React 18 + Vite 6.4 / react-router-dom。UpNote は**パターン B 直叩き**（proxy Worker なし）。
+  - **メタ出力（R4）は `src/lib/headManager.js` + `DocumentMeta.jsx` の直接 head 管理**。react-helmet-async は「dev / 本番ビルドとも実行時にタグを一切出力しない」不具合を確認したため **2026-08 に撤去**（依存からも削除済み）。
+- **コラムは記事ごとの個別 URL**（`/blog/:id`・R14-3・2026-08 対応）: 記事固有 title / description / canonical / OGP（og:type=article）+ `BlogPosting` / `BreadcrumbList` JSON-LD + 可視パンくず + 「一覧へ戻る」。存在しない id は「記事が見つかりませんでした」+ noindex。sitemap にも記事 URL を含む（下記）。
+- **未対応（要検討）**: R14-5 のビルド時プリレンダリング SSG は未実装（本サイトは SPA + 個別 URL + sitemap まで）。JS を実行しない AI クローラー対策・SNS リンクプレビューの記事別 OGP まで求める場合は、P180（JS 移植版）の `scripts/prerender.mjs` 一式の導入を別途行う。導入時は [Deploy Hook × UpNote Webhook] の登録も必須。
+- 連絡方式: **UpNote 問い合わせ API**（R6-upnote・`POST /api/v1/inquiries`）。コンテンツ取得と同じ公開 API キーで送信し、**追加の環境変数・外部サービス登録は不要**。通知メールは UpNote ログイン用アドレス宛（SendGrid 経由・HP 側に送信先設定なし）。
 
 ---
 
@@ -28,7 +31,6 @@ VITE_OG_IMAGE_URL=https://<確定ドメイン>/og-image.svg
 VITE_UPNOTE_API_BASE_URL=https://api.upnote.jp
 VITE_UPNOTE_PUBLIC_API_KEY=up_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 VITE_UPNOTE_API_KEY_HEADER=X-API-Key
-VITE_GOOGLE_FORM_EMBED_URL=https://docs.google.com/forms/d/e/xxxx/viewform?embedded=true
 # 任意
 # VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 # VITE_GOOGLE_SITE_VERIFICATION=xxxxxxxxxxxxxxxxxxxx
@@ -43,10 +45,13 @@ VITE_GOOGLE_FORM_EMBED_URL=https://docs.google.com/forms/d/e/xxxx/viewform?embed
 - `https://p015demo.<account>.workers.dev`（動作確認用・恒久）
 - `https://<確定ドメイン>`（DNS 切替後）
 
-### Google フォーム
+### 問い合わせフォーム（UpNote 問い合わせ API）
 
-- `VITE_GOOGLE_FORM_EMBED_URL` 未設定の場合、`/contact` はフォームを出さず「準備中」+ 電話導線を表示する（壊れない）。
-- フォーム作成 → 「送信」→ `< >`（埋め込み）→ `src="..."` の URL（`embedded=true` 付き）を上記変数に設定。
+- `/contact` のフォームは **`POST {VITE_UPNOTE_API_BASE_URL}/api/v1/inquiries`** に送信（`src/lib/upnote.js` の `submitInquiry`）。認証はコンテンツ取得と同じ公開 API キー（`X-API-Key`）で、**フォーム専用の環境変数・外部サービス登録は不要**。
+- 通知メールは **API キー発行元企業の UpNote ログイン用メールアドレス**（各社 1 アドレス）へ SendGrid 経由で届く。通知は自動送信（返信不可）で、顧客は本文記載の問い合わせ者アドレスへ直接返信する。問い合わせ内容は **DB に保存されない**。
+- **許可オリジン登録はコンテンツ API と共通で必須**（未登録だと CORS で送信も失敗する）。
+- `npm run dev`（ローカルモード・API 未設定）では送信せず成功をシミュレートする（console に `[upnote] 問い合わせ送信(シミュレート)`）。
+- スパム対策の honeypot・必須バリデーション・送信中/成功/失敗表示を実装済み。失敗時は入力値を保持したまま再送できる。
 
 ---
 
@@ -114,8 +119,9 @@ VITE_GOOGLE_FORM_EMBED_URL=https://docs.google.com/forms/d/e/xxxx/viewform?embed
 5. **canonical / robots / 構造化データ**（実装済み）:
    - canonical: `DocumentMeta.jsx` が `${VITE_SITE_URL}${pathname}` を全ページ出力。
    - robots/sitemap: `scripts/generate-sitemap.mjs`（postbuild）。**`VITE_SITE_PUBLIC=1` のときだけ** `Allow` + sitemap 参照（未設定時 `Disallow` で誤公開防止）。
+   - **sitemap のコラム記事 URL（R14-3）**: ビルド時に UpNote 公開 API から columns 全件を取得し `/blog/:id` を `lastmod`（updatedAt）付きで追加する。**Cloudflare Build に `VITE_UPNOTE_API_BASE_URL` / `VITE_UPNOTE_PUBLIC_API_KEY` が設定されていることが前提**（未設定時は警告を出して静的ルートのみ生成・ビルドは止めない）。記事公開後に sitemap を最新化するには**再ビルド（Deploy Hook）が必要**。
    - JSON-LD: `ChildCare`（全ページ・社名 `合同会社ペラペラスタジオ`、所在地は `札幌市中央区` まで）+ `WebSite`（トップ）。詳細住所・電話は確定後に `DocumentMeta.jsx` へ追記。
-6. **デプロイ前チェック**: Build 変数（`VITE_SITE_URL` / `VITE_SITE_PUBLIC=1` / `VITE_GOOGLE_FORM_EMBED_URL` / UpNote セット）+ UpNote 許可オリジン + カスタムドメイン疎通（`curl -i https://<ドメイン>/` で `Server: cloudflare`）。
+6. **デプロイ前チェック**: Build 変数（`VITE_SITE_URL` / `VITE_SITE_PUBLIC=1` / UpNote セット）+ UpNote 許可オリジン + カスタムドメイン疎通（`curl -i https://<ドメイン>/` で `Server: cloudflare`）。
 7. **ローンチ当日**: DNS 切替 → 主要ページを GSC「URL 検査」でインデックス申請 → sitemap 送信 → 旧サイトに新サイトへの導線設置。
 8. **ローンチ後 1〜3 ヶ月**: GSC カバレッジ / 主要 KW（「札幌 子供 英語」「イマージョン 英語 札幌」等）順位を週次記録 → 残存 404 を `_redirects` に追加。
 9. **やってはいけない**: 旧プロパティの闇雲な削除 / 無関係ページへの 301 / robots で本番を Disallow のまま公開 / `VITE_SITE_PUBLIC=1` の入れ忘れ。
@@ -134,9 +140,13 @@ VITE_GOOGLE_FORM_EMBED_URL=https://docs.google.com/forms/d/e/xxxx/viewform?embed
 
 - [ ] スマホでハンバーガーメニュー開閉（オーバーレイ / Esc / リンクで閉じる / 背景スクロールロック）。ナビは6項目＋CTA。
 - [ ] トップのお知らせ抜粋が **3件**、カード押下でモーダルが開く
-- [ ] `/news` `/blog` でページャが動作（11件目以降）、モーダルに本文が出る（カードには出ない）
+- [ ] `/news` でページャが動作（11件目以降）、モーダルに本文が出る（カードには出ない）
+- [ ] `/blog` は大型サムネイルカード。カード押下で `/blog/:id` の記事詳細ページへ遷移（モーダルではない）
+- [ ] `/blog/:id` を**直接開いても**表示され、`<title>`・description・canonical が記事固有になっている
+- [ ] 存在しない id（例 `/blog/99999`）で「記事が見つかりませんでした」+ noindex + 一覧へ戻る導線
+- [ ] 本番ビルドの `dist/sitemap.xml` に `/blog/<id>` が含まれている（Build 変数設定後）
 - [ ] `/about` `/support` `/counseling` `/cases` の各セクション・カードが崩れず表示される（成長事例は5件＋チップ／相談室は相談内容・カウンセリング内容・ペアレントトレーニング）
 - [ ] ホームスタジオ紹介に円山ベース（英語・運動・情操教育＋TEL）と宮の森ベース（NEW OPEN・スキー/川遊び/山登り＋TEL）が表示される
-- [ ] `/contact` の Googleフォーム埋め込み（URL 設定後）。未設定時は「準備中」表示で壊れない
+- [ ] `/contact` の問い合わせフォーム送信（本番デプロイ後に実送信 → UpNote ログイン用アドレスに通知メールが届くこと。許可オリジン未登録だと CORS で失敗）
 - [ ] 旧 `/services` `/pricing` `/company` `/access` が新ページへリダイレクトする
 - [ ] 1024 / 768 / 480px で横スクロールが出ない・崩れない

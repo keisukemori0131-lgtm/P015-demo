@@ -1683,6 +1683,190 @@ ul {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* コラム一覧のフィーチャーカード（R14-3 + サムネ大型表示） */
+.card-grid--feature {
+  /* min(340px, 100%) で 480px 以下でも横スクロールを出さない（R1） */
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+  gap: 1.8rem;
+}
+.content-card--lg {
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  text-decoration: none;
+  background: #fff;
+}
+.content-card--lg .content-card__media {
+  flex: none;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 0;
+}
+.content-card--lg .content-card__media img {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.content-card--lg:hover .content-card__media img {
+  transform: scale(1.04);
+}
+.content-card--lg .content-card__noimg {
+  font-size: 3rem;
+}
+.content-card--lg .content-card__body {
+  padding: 1.2rem 1.3rem 1.4rem;
+  gap: 0.45rem;
+}
+.content-card--lg .content-card__title {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.content-card--lg .content-card__lead {
+  -webkit-line-clamp: 3;
+}
+.content-card--lg .content-card__more {
+  margin-top: 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--sky-deep);
+}
+
+/* 記事詳細ページ（R14-3 個別 URL 版） */
+.article__breadcrumb {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: 1.4rem;
+}
+.article__breadcrumb ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+}
+.article__breadcrumb li:not(:last-child)::after {
+  content: '›';
+  margin-left: 0.3em;
+  color: var(--line);
+}
+.article__breadcrumb a {
+  color: var(--sky-deep);
+  text-decoration: none;
+}
+.article__breadcrumb a:hover {
+  text-decoration: underline;
+}
+.article__breadcrumb li[aria-current] {
+  color: var(--ink);
+  font-weight: 700;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.article__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.6rem;
+}
+.article__title {
+  font-size: clamp(1.5rem, 3.2vw, 2rem);
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0 0 0.4em;
+}
+.article__subtitle {
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  margin: 0 0 1rem;
+}
+.article__hero {
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 1.2rem 0 1.6rem;
+  background: var(--sky-pale);
+}
+.article__hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.article__lead {
+  font-weight: 700;
+  line-height: 2;
+  margin-bottom: 1.2rem;
+}
+.article__body {
+  line-height: 2.1;
+}
+.article__body img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 0.8rem 0;
+}
+.article__body h2,
+.article__body h3 {
+  margin: 1.6em 0 0.6em;
+  color: var(--sky-deep);
+}
+.article__section {
+  margin-top: 1.8rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+.article__section h2 {
+  font-size: 1.2rem;
+  color: var(--sky-deep);
+  margin-bottom: 0.6em;
+}
+.article__section blockquote {
+  margin: 0;
+  padding: 1rem 1.2rem;
+  border-left: 4px solid var(--sky);
+  background: var(--sky-pale);
+  border-radius: 0 12px 12px 0;
+}
+.article__gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+}
+.article__gallery img {
+  width: 100%;
+  border-radius: 12px;
+}
+.article__detail {
+  margin-top: 2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+.article__detail-title {
+  font-size: 1.1rem;
+  color: var(--sky-deep);
+  margin-bottom: 0.8em;
+}
+.article__back {
+  margin-top: 2.4rem;
+}
+.article__notfound {
+  text-align: center;
+  padding: 2rem 0 1rem;
+}
+.article__notfound p {
+  margin: 1rem 0 1.6rem;
+  color: var(--ink-soft);
+}
 .chip {
   display: inline-block;
   padding: 0.15em 0.7em;
@@ -2213,6 +2397,103 @@ ul {
   border-radius: var(--radius);
   background: var(--cream);
   min-height: 600px;
+}
+
+/* 問い合わせフォーム（UpNote 問い合わせ API / R6-upnote） */
+.contact-form {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.8rem 1.6rem;
+  box-shadow: var(--shadow-soft);
+}
+.contact-form__field {
+  margin-bottom: 1.3rem;
+}
+.contact-form__field label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 0.45em;
+  color: var(--ink);
+}
+.contact-form__required {
+  display: inline-block;
+  margin-left: 0.5em;
+  padding: 0.1em 0.6em;
+  border-radius: 999px;
+  background: var(--coral);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  vertical-align: 0.1em;
+}
+.contact-form__field input,
+.contact-form__field textarea {
+  width: 100%;
+  padding: 0.75em 0.9em;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: var(--cream-2);
+  font-family: var(--font-base);
+  font-size: 1rem;
+  color: var(--ink);
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.contact-form__field textarea {
+  resize: vertical;
+  min-height: 10em;
+}
+.contact-form__field input:focus,
+.contact-form__field textarea:focus {
+  outline: none;
+  border-color: var(--sky);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(108, 196, 222, 0.25);
+}
+.contact-form__field input[aria-invalid='true'],
+.contact-form__field textarea[aria-invalid='true'] {
+  border-color: var(--coral);
+}
+.contact-form__error {
+  margin: 0.4em 0 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #c94f36; /* cream 背景上でコントラスト 4.5:1 以上 */
+}
+.contact-form__error--global {
+  margin: 0 0 1rem;
+  padding: 0.8em 1em;
+  border-radius: 12px;
+  background: #fdeee9;
+}
+/* honeypot: 視覚・タブ順から除外（display:none だと一部 bot が無視するため画面外配置） */
+.contact-form__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.contact-form__note {
+  margin: 0.9rem 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.contact-form__done {
+  background: var(--sky-pale);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 2rem 1.6rem;
+  text-align: center;
+}
+.contact-form__done h3 {
+  color: var(--sky-deep);
+  margin-bottom: 0.5em;
+}
+.contact-form__done p {
+  color: var(--ink-soft);
+  line-height: 1.9;
 }
 .contact-side {
   background: var(--sky-pale);

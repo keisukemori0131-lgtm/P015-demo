@@ -1,10 +1,10 @@
 import DocumentMeta from '../components/DocumentMeta.jsx'
 import PageHero from '../components/PageHero.jsx'
 import ContactAside from '../components/ContactAside.jsx'
+import ContactForm from '../components/ContactForm.jsx'
 
-// 問い合わせは Googleフォーム埋め込み（YAML contact.method = "Googleフォーム"）。
-// 埋め込み URL は環境変数 VITE_GOOGLE_FORM_EMBED_URL（embedded=true 付き）から。
-const FORM_URL = import.meta.env.VITE_GOOGLE_FORM_EMBED_URL
+// 問い合わせは UpNote 問い合わせ API（R6-upnote・POST /api/v1/inquiries）。
+// 認証はコンテンツ取得と同じ公開 API キーで、追加の環境変数は不要。
 
 export default function ContactPage() {
   return (
@@ -24,27 +24,7 @@ export default function ContactPage() {
 
           <div className="contact-grid">
             <div className="contact-form-wrap">
-              {FORM_URL ? (
-                <iframe
-                  title="お問い合わせフォーム"
-                  src={FORM_URL}
-                  width="100%"
-                  height="900"
-                  frameBorder="0"
-                  marginHeight={0}
-                  marginWidth={0}
-                  loading="lazy"
-                >
-                  読み込んでいます…
-                </iframe>
-              ) : (
-                <div className="note-box">
-                  <p>
-                    お問い合わせフォームは現在準備中です。お電話・メールにてお気軽にご連絡ください。
-                    （公開前に Googleフォームの埋め込み URL を設定します。）
-                  </p>
-                </div>
-              )}
+              <ContactForm />
             </div>
 
             <ContactAside />

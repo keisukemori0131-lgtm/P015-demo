@@ -7,11 +7,23 @@ import { useContentList } from '../lib/useUpNote.js'
 import { isEnabled } from '../config/upnoteContentTypes.js'
 
 /**
- * 一覧 + ページャ + モーダル詳細（R14）。limit=10 でページング。
+ * 一覧 + ページャ（R14）。limit=10 でページング。
+ * - `detailBasePath` があれば各カードは `<Link to={`${detailBasePath}/${id}`}>` で
+ *   個別詳細ページへ遷移する（R14-3・2026-07 標準。モーダルは使わない）
+ * - 無ければ従来のモーダル詳細（既存 news 等の保守用）
  * @param {string} slug contentTypeSlug
+ * @param {string} [detailBasePath] 例 "/blog"
+ * @param {string} [cardSize] "lg" でフィーチャーカード表示（コラム一覧）
  * @param {(item)=>Array} buildSections モーダルの追加セクション生成（任意）
  */
-export default function ContentListSection({ slug, emptyLabel, disabledLabel, buildSections }) {
+export default function ContentListSection({
+  slug,
+  emptyLabel,
+  disabledLabel,
+  buildSections,
+  detailBasePath,
+  cardSize,
+}) {
   const [page, setPage] = useState(1)
   const [modalItem, setModalItem] = useState(null)
   const topRef = useRef(null)
@@ -40,9 +52,15 @@ export default function ContentListSection({ slug, emptyLabel, disabledLabel, bu
       {!loading && !error && data && data.totalCount === 0 && <EmptyMsg label={emptyLabel} />}
       {!loading && !error && data && data.items.length > 0 && (
         <>
-          <div className="card-grid">
+          <div className={`card-grid${cardSize === 'lg' ? ' card-grid--feature' : ''}`}>
             {data.items.map((item) => (
-              <ContentCard key={item.id} item={item} onOpen={setModalItem} />
+              <ContentCard
+                key={item.id}
+                item={item}
+                size={cardSize}
+                to={detailBasePath ? `${detailBasePath}/${item.id}` : undefined}
+                onOpen={detailBasePath ? undefined : setModalItem}
+              />
             ))}
           </div>
           <Pager current={data.page} totalPages={data.totalPages} onChange={onChange} />

@@ -7,10 +7,10 @@ export const MAIN_NAV = [
   { label: '独自の取り組み', to: '/special' },
   { label: 'こころの相談室', to: '/counseling' },
   { label: '成長事例', to: '/cases' },
+  { label: 'コラム', to: '/blog' },
   { label: 'お知らせ', to: '/news' },
 ]
 
-// フッターでは MAIN_NAV に加えてコラムも掲載（ヘッダーは項目数を抑えるため省略）。
-export const FOOTER_NAV = [...MAIN_NAV, { label: 'コラム', to: '/blog' }]
+export const FOOTER_NAV = MAIN_NAV
 
 export const CTA_NAV = { label: '見学・体験のお問い合わせ', to: '/contact' }

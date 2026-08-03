@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Helmet } from 'react-helmet-async'
+import { JsonLd } from '../lib/headManager.js'
 import { Loading, ErrorMsg, EmptyMsg } from './StateMessage.jsx'
 import { useContentList } from '../lib/useUpNote.js'
 import { isEnabled, CONTENT_TYPE_FOR } from '../config/upnoteContentTypes.js'
@@ -27,11 +27,7 @@ export default function FaqList() {
 
   return (
     <>
-      {faqLd && (
-        <Helmet>
-          <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
-        </Helmet>
-      )}
+      {faqLd && <JsonLd group="faq" data={faqLd} />}
       <div className="faq">
         {data.items.map((item, i) => {
           const q = item?.data?.question || getContentTitle(item)

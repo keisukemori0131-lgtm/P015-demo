@@ -11,7 +11,7 @@
 //
 // ※ R15: dev でキー・ベース URL 未設定なら fetchLocalContents 経由でローカル JSON を読む。
 
-import { fetchLocalContents } from './upnoteLocal.js'
+import { fetchLocalContents, fetchLocalContentById } from './upnoteLocal.js'
 
 const DEFAULT_KEY_HEADER = 'X-API-Key'
 const PROXY_PREFIX = '/api/upnote/v1'
@@ -47,13 +47,13 @@ if (!USE_LOCAL_DATA && !VIA_PROXY && !RAW_KEY) {
   )
 }
 
-async function request(path) {
-  const headers = { Accept: 'application/json' }
+async function request(path, init = {}) {
+  const headers = { Accept: 'application/json', ...(init.headers ?? {}) }
   if (!VIA_PROXY && RAW_KEY) headers[KEY_HEADER] = RAW_KEY
 
   let res
   try {
-    res = await fetch(endpoint(path), { headers, cache: 'no-store' })
+    res = await fetch(endpoint(path), { ...init, headers, cache: 'no-store' })
   } catch {
     const err = new Error('NETWORK: ネットワークエラー（CORS の許可オリジン未登録などを確認）')
     err.errorCode = 'NETWORK'
@@ -89,6 +89,45 @@ export async function fetchContents(contentTypeSlug, options = {}) {
   if (options.limit) params.set('limit', String(options.limit))
   if (options.q) params.set('q', options.q)
   return request(`/contents?${params.toString()}`)
+}
+
+/**
+ * コンテンツ詳細取得 (GET /api/v1/contents/{id})。
+ * 下書き・掲載期間外・削除済みは 404 (NOT_FOUND) を投げる。
+ * dev のローカルモードでは localSlug のローカル JSON から id 一致を探す（R15）。
+ *
+ * @param {string} id コンテンツ ID
+ * @param {{ localSlug?: string }} [options] ローカルモードで読む contentTypeSlug
+ */
+export async function fetchContentById(id, options = {}) {
+  if (USE_LOCAL_DATA) return fetchLocalContentById(options.localSlug, id)
+  return request(`/contents/${id}`)
+}
+
+/**
+ * 問い合わせ送信 (POST /api/v1/inquiries・設計書 v1.1 §7.3)
+ *
+ * その企業の UpNote 管理者メールアドレスへ通知メールが送られる（DB 保存なし）。
+ * ローカルモード（dev かつ API 未設定）では API に送信せず成功をシミュレートする（R15）。
+ *
+ * 失敗時は errorCode 付き Error を投げる:
+ *   VALIDATION_ERROR (400) — 必須欠落・文字数超過・メール形式不正
+ *   MAIL_SEND_FAILED (500) — メール送信失敗。入力値を保持したまま再送を促すこと
+ *
+ * @param {{ name: string, email: string, subject?: string, message: string }} inquiry
+ */
+export async function submitInquiry(inquiry) {
+  if (USE_LOCAL_DATA) {
+    console.warn('[upnote] 問い合わせ送信(シミュレート): API 未設定のため送信していません', inquiry)
+    await new Promise((resolve) => setTimeout(resolve, 600))
+    return { simulated: true }
+  }
+  await request('/inquiries', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(inquiry),
+  })
+  return { simulated: false }
 }
 
 /* ───────────── 表示ヘルパー ───────────── */
