@@ -10,14 +10,18 @@ export default function NewsPage() {
       <DocumentMeta />
       <PageHero title="お知らせ" image="/images/news/cover.svg" />
       <section className="section">
-        <div className="container container--narrow">
+        <div className="container">
           <p className="eyebrow">NEWS</p>
           <h2 className="section-title">お知らせ</h2>
           <p className="section-lead">
             見学・体験のご案内や季節のイベント、休所日・スケジュールの変更など、ペラペラスタジオからの大切なお知らせをお届けします。
             カードを押すと詳しい内容をご覧いただけます。
           </p>
-          <ContentListSection slug={CONTENT_TYPE_FOR.news} emptyLabel={EMPTY_MESSAGES.news} />
+          <ContentListSection
+            slug={CONTENT_TYPE_FOR.news}
+            emptyLabel={EMPTY_MESSAGES.news}
+            cardSize="lg"
+          />
         </div>
       </section>
     </>
