@@ -299,17 +299,6 @@ ul {
 .nav__item--has-children {
   position: relative;
 }
-/* 開閉状態に連動（タッチの sticky :hover で矢印が固定されないようにする） */
-.nav__item--has-children.is-expanded .nav__caret {
-  transform: rotate(180deg);
-}
-/* デスクトップのみホバー／フォーカスでも矢印を反転（クリック前の展開に合わせる） */
-@media (min-width: 1401px) {
-  .nav__item--has-children:hover .nav__caret,
-  .nav__item--has-children:focus-within .nav__caret {
-    transform: rotate(180deg);
-  }
-}
 .nav__dropdown {
   position: absolute;
   top: 100%;
@@ -349,11 +338,14 @@ ul {
   box-shadow: 0 12px 28px rgba(47, 74, 87, 0.14);
   overflow: hidden;
 }
-/* デスクトップ：ホバー / フォーカス / is-open で展開 */
+/* デスクトップ：CSS ホバー／フォーカスのみ（React の is-open に依存しない） */
 @media (min-width: 1401px) {
+  .nav__item--has-children:hover .nav__caret,
+  .nav__item--has-children:focus-within .nav__caret {
+    transform: rotate(180deg);
+  }
   .nav__item--has-children:hover .nav__dropdown,
-  .nav__item--has-children:focus-within .nav__dropdown,
-  .nav__dropdown.is-open {
+  .nav__item--has-children:focus-within .nav__dropdown {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -3246,6 +3238,10 @@ ul {
     display: grid;
     gap: 0.35rem;
   }
+  /* モバイル：aria-expanded だけで▼を制御（sticky :hover の影響を受けない） */
+  .nav__link--parent[aria-expanded='true'] .nav__caret {
+    transform: rotate(180deg);
+  }
   .nav__dropdown {
     position: static;
     transform: none;
@@ -3258,16 +3254,15 @@ ul {
     opacity: 1;
     visibility: visible;
     pointer-events: none;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.25s ease;
+    display: none;
+    transition: none;
   }
   .nav__dropdown::before {
     display: none;
   }
   .nav__dropdown.is-open {
+    display: block;
     pointer-events: auto;
-    max-height: 20rem;
     margin: 0.2rem 0 0.35rem;
   }
   .nav__dropdown-inner {

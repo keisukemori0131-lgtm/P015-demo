@@ -4,29 +4,11 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import Logo from './Logo.jsx'
 import { HEADER_NAV, CTA_NAV } from '../constants/nav.js'
 
-const DESKTOP_NAV_MQ = '(min-width: 1401px)'
-
-function useDesktopNav() {
-  const [isDesktop, setIsDesktop] = useState(() =>
-    typeof window !== 'undefined' ? window.matchMedia(DESKTOP_NAV_MQ).matches : false,
-  )
-
-  useEffect(() => {
-    const mq = window.matchMedia(DESKTOP_NAV_MQ)
-    const update = () => setIsDesktop(mq.matches)
-    update()
-    mq.addEventListener('change', update)
-    return () => mq.removeEventListener('change', update)
-  }, [])
-
-  return isDesktop
-}
-
 function isGroupActive(children, pathname) {
   return children.some((c) => pathname === c.to || pathname.startsWith(`${c.to}/`))
 }
 
-function NavItem({ item, pathname, onNavigate, menuOpen, isDesktop }) {
+function NavItem({ item, pathname, onNavigate, menuOpen }) {
   const [expanded, setExpanded] = useState(false)
   const hasChildren = Array.isArray(item.children) && item.children.length > 0
 
@@ -34,7 +16,7 @@ function NavItem({ item, pathname, onNavigate, menuOpen, isDesktop }) {
     setExpanded(false)
   }, [pathname])
 
-  // ハンバーガーを閉じたらアコーディオンも閉じる（次回オープン時に▼が開いたまま残らない）
+  // ハンバーガーを閉じたらアコーディオンも閉じる
   useEffect(() => {
     if (!menuOpen) setExpanded(false)
   }, [menuOpen])
@@ -59,19 +41,13 @@ function NavItem({ item, pathname, onNavigate, menuOpen, isDesktop }) {
   return (
     <li
       className={`nav__item--has-children${expanded ? ' is-expanded' : ''}${active ? ' is-active' : ''}`}
-      onMouseEnter={isDesktop ? () => setExpanded(true) : undefined}
-      onMouseLeave={isDesktop ? () => setExpanded(false) : undefined}
     >
       <button
         type="button"
         className={`nav__link nav__link--parent${active ? ' is-active' : ''}`}
         aria-expanded={expanded}
         aria-haspopup="true"
-        onClick={() => {
-          // タッチ端末では mouseenter のあとに click が来るため、
-          // デスクトップ以外はクリックだけで開閉する
-          if (!isDesktop) setExpanded((v) => !v)
-        }}
+        onClick={() => setExpanded((v) => !v)}
       >
         {item.label}
         <span className="nav__caret" aria-hidden="true" />
@@ -98,7 +74,6 @@ function NavItem({ item, pathname, onNavigate, menuOpen, isDesktop }) {
 export default function Header() {
   const { pathname } = useLocation()
   const isHome = pathname === '/'
-  const isDesktop = useDesktopNav()
   const [overlay, setOverlay] = useState(isHome)
   const [open, setOpen] = useState(false)
 
@@ -178,7 +153,6 @@ export default function Header() {
                 pathname={pathname}
                 onNavigate={onNavigate}
                 menuOpen={open}
-                isDesktop={isDesktop}
               />
             ))}
             <li className="nav__cta-li">
