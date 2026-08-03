@@ -4,17 +4,40 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import Logo from './Logo.jsx'
 import { HEADER_NAV, CTA_NAV } from '../constants/nav.js'
 
+const DESKTOP_NAV_MQ = '(min-width: 1401px)'
+
+function useDesktopNav() {
+  const [isDesktop, setIsDesktop] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia(DESKTOP_NAV_MQ).matches : false,
+  )
+
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP_NAV_MQ)
+    const update = () => setIsDesktop(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+
+  return isDesktop
+}
+
 function isGroupActive(children, pathname) {
   return children.some((c) => pathname === c.to || pathname.startsWith(`${c.to}/`))
 }
 
-function NavItem({ item, pathname, onNavigate }) {
+function NavItem({ item, pathname, onNavigate, menuOpen, isDesktop }) {
   const [expanded, setExpanded] = useState(false)
   const hasChildren = Array.isArray(item.children) && item.children.length > 0
 
   useEffect(() => {
     setExpanded(false)
   }, [pathname])
+
+  // ハンバーガーを閉じたらアコーディオンも閉じる（次回オープン時に▼が開いたまま残らない）
+  useEffect(() => {
+    if (!menuOpen) setExpanded(false)
+  }, [menuOpen])
 
   if (!hasChildren) {
     return (
@@ -36,15 +59,19 @@ function NavItem({ item, pathname, onNavigate }) {
   return (
     <li
       className={`nav__item--has-children${expanded ? ' is-expanded' : ''}${active ? ' is-active' : ''}`}
-      onMouseEnter={() => setExpanded(true)}
-      onMouseLeave={() => setExpanded(false)}
+      onMouseEnter={isDesktop ? () => setExpanded(true) : undefined}
+      onMouseLeave={isDesktop ? () => setExpanded(false) : undefined}
     >
       <button
         type="button"
         className={`nav__link nav__link--parent${active ? ' is-active' : ''}`}
         aria-expanded={expanded}
         aria-haspopup="true"
-        onClick={() => setExpanded((v) => !v)}
+        onClick={() => {
+          // タッチ端末では mouseenter のあとに click が来るため、
+          // デスクトップ以外はクリックだけで開閉する
+          if (!isDesktop) setExpanded((v) => !v)
+        }}
       >
         {item.label}
         <span className="nav__caret" aria-hidden="true" />
@@ -71,6 +98,7 @@ function NavItem({ item, pathname, onNavigate }) {
 export default function Header() {
   const { pathname } = useLocation()
   const isHome = pathname === '/'
+  const isDesktop = useDesktopNav()
   const [overlay, setOverlay] = useState(isHome)
   const [open, setOpen] = useState(false)
 
@@ -144,7 +172,14 @@ export default function Header() {
         <nav id="global-nav" className={`nav${open ? ' is-open' : ''}`} aria-label="グローバルナビゲーション">
           <ul className="nav__list">
             {HEADER_NAV.map((item) => (
-              <NavItem key={item.label} item={item} pathname={pathname} onNavigate={onNavigate} />
+              <NavItem
+                key={item.label}
+                item={item}
+                pathname={pathname}
+                onNavigate={onNavigate}
+                menuOpen={open}
+                isDesktop={isDesktop}
+              />
             ))}
             <li className="nav__cta-li">
               <Link to={CTA_NAV.to} className="btn btn--nav-cta" onClick={onNavigate}>

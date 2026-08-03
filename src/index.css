@@ -299,9 +299,16 @@ ul {
 .nav__item--has-children {
   position: relative;
 }
-.nav__item--has-children:hover .nav__caret,
+/* 開閉状態に連動（タッチの sticky :hover で矢印が固定されないようにする） */
 .nav__item--has-children.is-expanded .nav__caret {
   transform: rotate(180deg);
+}
+/* デスクトップのみホバー／フォーカスでも矢印を反転（クリック前の展開に合わせる） */
+@media (min-width: 1401px) {
+  .nav__item--has-children:hover .nav__caret,
+  .nav__item--has-children:focus-within .nav__caret {
+    transform: rotate(180deg);
+  }
 }
 .nav__dropdown {
   position: absolute;
