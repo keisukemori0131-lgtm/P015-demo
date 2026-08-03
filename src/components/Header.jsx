@@ -2,7 +2,71 @@ import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import Logo from './Logo.jsx'
-import { MAIN_NAV, CTA_NAV } from '../constants/nav.js'
+import { HEADER_NAV, CTA_NAV } from '../constants/nav.js'
+
+function isGroupActive(children, pathname) {
+  return children.some((c) => pathname === c.to || pathname.startsWith(`${c.to}/`))
+}
+
+function NavItem({ item, pathname, onNavigate }) {
+  const [expanded, setExpanded] = useState(false)
+  const hasChildren = Array.isArray(item.children) && item.children.length > 0
+
+  useEffect(() => {
+    setExpanded(false)
+  }, [pathname])
+
+  if (!hasChildren) {
+    return (
+      <li>
+        <NavLink
+          to={item.to}
+          end={item.to === '/'}
+          className={({ isActive }) => `nav__link${isActive ? ' is-active' : ''}`}
+          onClick={onNavigate}
+        >
+          {item.label}
+        </NavLink>
+      </li>
+    )
+  }
+
+  const active = isGroupActive(item.children, pathname)
+
+  return (
+    <li
+      className={`nav__item--has-children${expanded ? ' is-expanded' : ''}${active ? ' is-active' : ''}`}
+      onMouseEnter={() => setExpanded(true)}
+      onMouseLeave={() => setExpanded(false)}
+    >
+      <button
+        type="button"
+        className={`nav__link nav__link--parent${active ? ' is-active' : ''}`}
+        aria-expanded={expanded}
+        aria-haspopup="true"
+        onClick={() => setExpanded((v) => !v)}
+      >
+        {item.label}
+        <span className="nav__caret" aria-hidden="true" />
+      </button>
+      <div className={`nav__dropdown${expanded ? ' is-open' : ''}`}>
+        <ul className="nav__dropdown-inner" role="list">
+          {item.children.map((child) => (
+            <li key={child.to}>
+              <NavLink
+                to={child.to}
+                className={({ isActive }) => `nav__dropdown-link${isActive ? ' is-active' : ''}`}
+                onClick={onNavigate}
+              >
+                {child.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </li>
+  )
+}
 
 export default function Header() {
   const { pathname } = useLocation()
@@ -10,7 +74,6 @@ export default function Header() {
   const [overlay, setOverlay] = useState(isHome)
   const [open, setOpen] = useState(false)
 
-  // ヒーロー上にいる間だけ透過オーバーレイ（R16-1）。トップ以外は常に通常表示。
   useEffect(() => {
     if (!isHome) {
       setOverlay(false)
@@ -26,7 +89,6 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [isHome])
 
-  // メニュー展開時は body スクロールロック（R1）
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => {
@@ -34,12 +96,10 @@ export default function Header() {
     }
   }, [open])
 
-  // ルート遷移時はメニューを閉じる
   useEffect(() => {
     setOpen(false)
   }, [pathname])
 
-  // Esc で閉じる
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && setOpen(false)
     window.addEventListener('keydown', onKey)
@@ -48,6 +108,10 @@ export default function Header() {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
   const closeMenu = () => setOpen(false)
+  const onNavigate = () => {
+    closeMenu()
+    scrollToTop()
+  }
 
   const headerClass = [
     'header',
@@ -79,30 +143,11 @@ export default function Header() {
 
         <nav id="global-nav" className={`nav${open ? ' is-open' : ''}`} aria-label="グローバルナビゲーション">
           <ul className="nav__list">
-            {MAIN_NAV.map((item) => (
-              <li key={item.to}>
-                <NavLink
-                  to={item.to}
-                  end={item.to === '/'}
-                  className={({ isActive }) => `nav__link${isActive ? ' is-active' : ''}`}
-                  onClick={() => {
-                    closeMenu()
-                    scrollToTop()
-                  }}
-                >
-                  {item.label}
-                </NavLink>
-              </li>
+            {HEADER_NAV.map((item) => (
+              <NavItem key={item.label} item={item} pathname={pathname} onNavigate={onNavigate} />
             ))}
             <li className="nav__cta-li">
-              <Link
-                to={CTA_NAV.to}
-                className="btn btn--nav-cta"
-                onClick={() => {
-                  closeMenu()
-                  scrollToTop()
-                }}
-              >
+              <Link to={CTA_NAV.to} className="btn btn--nav-cta" onClick={onNavigate}>
                 {CTA_NAV.label}
               </Link>
             </li>
@@ -110,7 +155,6 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* header の backdrop-filter 外へ出し、画面全体を覆う（メニュー外タップで閉じる） */}
       {open
         ? createPortal(
             <div className="nav__overlay is-visible" onClick={closeMenu} aria-hidden="true" />,
