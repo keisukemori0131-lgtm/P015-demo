@@ -1779,6 +1779,14 @@ ul {
   color: var(--ink-soft);
   margin-bottom: 0.6rem;
 }
+.article__author {
+  margin: 2rem 0 0;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  text-align: right;
+}
 .article__title {
   font-size: clamp(1.5rem, 3.2vw, 2rem);
   line-height: 1.5;

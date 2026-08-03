@@ -3,6 +3,7 @@ import {
   getContentTitle,
   getContentLead,
   getContentTags,
+  getContentCategory,
   getContentThumb,
   formatContentDate,
 } from '../lib/upnoteContent.js'
@@ -17,6 +18,7 @@ export default function ContentCard({ item, onOpen, to, size }) {
   const title = getContentTitle(item)
   const lead = getContentLead(item)
   const tags = getContentTags(item)
+  const category = getContentCategory(item)
   const thumb = getContentThumb(item)
   const date = formatContentDate(item)
 
@@ -36,6 +38,9 @@ export default function ContentCard({ item, onOpen, to, size }) {
       <span className="content-card__body">
         <span className="content-card__meta">
           {date && <time>{date}</time>}
+          {category ? (
+            <span className="chip chip--sm content-card__category">{category}</span>
+          ) : null}
           {tags.slice(0, 2).map((t) => (
             <span key={t} className="chip chip--sm">
               {t}

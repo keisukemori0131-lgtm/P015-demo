@@ -50,6 +50,14 @@ export function getContentTags(item) {
     .filter(Boolean)
 }
 
+export function getContentCategory(item) {
+  return pick(item?.data, ['category', 'カテゴリ'])
+}
+
+export function getContentAuthor(item) {
+  return pick(item?.data, ['author_name', 'author', '著者'])
+}
+
 const IMG_RE = /\.(png|jpe?g|gif|webp|svg)(\?|$)/i
 
 export function isImageUrl(v) {
@@ -224,6 +232,9 @@ export const DEFAULT_MODAL_SKIP_KEYS = [
   'attachment_3',
   'tag_name',
   'notice_date',
+  'category',
+  'author_name',
+  'author',
   // 掲載期間（掲載開始日・掲載終了日）は運用情報のため画面に表示しない
   'posted_period_start',
   'posted_period_end',

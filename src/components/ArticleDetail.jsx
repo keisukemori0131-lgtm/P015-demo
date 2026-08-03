@@ -1,26 +1,21 @@
 import { Link } from 'react-router-dom'
-import UpnoteFieldValue from './UpnoteFieldValue.jsx'
-import { labelForField } from '../constants/upnoteFieldLabels.js'
 import {
   getContentTitle,
   getContentSubtitle,
   getContentLead,
   getContentBody,
   getContentTags,
+  getContentCategory,
+  getContentAuthor,
   getContentImageUrls,
-  getContentFieldEntries,
   formatContentDate,
 } from '../lib/upnoteContent.js'
 
 /**
- * 記事詳細ページ本体（R14-3 / R14-3a・個別 URL 版）。
- * 構成順: パンくず → メタ（日付・タグ）→ タイトル → サブタイトル → ヒーロー画像
- *         → リード → 本文（HTML 整形）→ 追加セクション → ギャラリー → 「詳細情報」グリッド → 一覧へ戻る
- * item.data の全フィールドを漏れなく描画（既定スロット済みは skipKeys で重複回避）。
- * @param {object} item UpNote コンテンツ
- * @param {string} listPath 一覧ページのパス（例 "/blog"）
- * @param {string} listLabel 一覧ページの表示名（例 "コラム"）
- * @param {Array} [sections] 追加セクション（case_studies の課題/取り組み等）
+ * コラム記事詳細（/blog/:id）。
+ * 構成: パンくず → メタ（日付・カテゴリ・タグ）→ タイトル → ヒーロー → リード → 本文
+ *       → ギャラリー → 著者 → 一覧へ戻る
+ * 「詳細情報」グリッドは表示しない。
  */
 export default function ArticleDetail({ item, listPath, listLabel, sections = [] }) {
   const title = getContentTitle(item)
@@ -28,16 +23,16 @@ export default function ArticleDetail({ item, listPath, listLabel, sections = []
   const lead = getContentLead(item)
   const body = getContentBody(item)
   const tags = getContentTags(item)
+  const category = getContentCategory(item)
+  const author = getContentAuthor(item)
   const images = getContentImageUrls(item)
   const hero = images[0]
   const gallery = images.slice(1)
   const date = formatContentDate(item)
-  const entries = getContentFieldEntries(item)
   const activeSections = sections.filter((s) => s.html != null && s.html !== '')
 
   return (
     <article className="article">
-      {/* 可視パンくず（R14-3） */}
       <nav className="article__breadcrumb" aria-label="パンくずリスト">
         <ol>
           <li>
@@ -52,6 +47,7 @@ export default function ArticleDetail({ item, listPath, listLabel, sections = []
 
       <div className="article__meta">
         {date && <time>{date}</time>}
+        {category ? <span className="chip">{category}</span> : null}
         {tags.map((t) => (
           <span key={t} className="chip">
             {t}
@@ -90,21 +86,7 @@ export default function ArticleDetail({ item, listPath, listLabel, sections = []
         </div>
       )}
 
-      {entries.length > 0 && (
-        <div className="article__detail">
-          <h2 className="article__detail-title">詳細情報</h2>
-          <dl className="detail-grid">
-            {entries.map(([k, v]) => (
-              <div key={k} className="detail-grid__cell">
-                <dt>{labelForField(k)}</dt>
-                <dd>
-                  <UpnoteFieldValue value={v} />
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      )}
+      {author ? <p className="article__author">著者：{author}</p> : null}
 
       <div className="article__back">
         <Link to={listPath} className="btn btn--outline">
