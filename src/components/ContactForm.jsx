@@ -175,12 +175,15 @@ export default function ContactForm() {
         ) : null}
       </div>
 
-      {/* honeypot（スパム対策・R6）: 人間には見えない。入力があれば送信しない */}
+      {/* honeypot（スパム対策・R6）: 人間には見えない。入力があれば送信しない。
+          注意: name/label に「会社名」「company」等の実在項目名を使うと Chrome の
+          オートフィルが隠し欄にも値を入れてしまい、人間の送信が黙って破棄される
+          （2026-08 本番で実際に発生）。オートフィルが解釈できない名前にすること。 */}
       <div className="contact-form__hp" aria-hidden="true">
-        <label htmlFor="contact-company">会社名</label>
+        <label htmlFor="contact-extra-field">この欄は空のままにしてください</label>
         <input
-          id="contact-company"
-          name="company"
+          id="contact-extra-field"
+          name="contact_extra_field"
           type="text"
           tabIndex={-1}
           autoComplete="off"
