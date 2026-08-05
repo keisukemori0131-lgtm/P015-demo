@@ -27,5 +27,5 @@ export default function UpnoteFieldValue({ value }) {
   }
   if (typeof value === 'boolean') return <span>{value ? 'はい' : 'いいえ'}</span>
   if (HTML_RE.test(v)) return <span dangerouslySetInnerHTML={{ __html: v }} />
-  return <span>{v}</span>
+  return <span className="field-text">{v}</span>
 }

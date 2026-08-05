@@ -9,6 +9,7 @@ import {
   getContentAuthor,
   getContentImageUrls,
   formatContentDate,
+  toDisplayHtml,
 } from '../lib/upnoteContent.js'
 
 /**
@@ -65,15 +66,15 @@ export default function ArticleDetail({ item, listPath, listLabel, sections = []
       )}
 
       {lead && <p className="article__lead">{lead}</p>}
-      {body && <div className="article__body" dangerouslySetInnerHTML={{ __html: body }} />}
+      {body && <div className="article__body" dangerouslySetInnerHTML={{ __html: toDisplayHtml(body) }} />}
 
       {activeSections.map((s) => (
         <section key={s.label} className="article__section">
           <h2>{s.label}</h2>
           {s.quote ? (
-            <blockquote dangerouslySetInnerHTML={{ __html: s.html }} />
+            <blockquote dangerouslySetInnerHTML={{ __html: toDisplayHtml(s.html) }} />
           ) : (
-            <div dangerouslySetInnerHTML={{ __html: s.html }} />
+            <div dangerouslySetInnerHTML={{ __html: toDisplayHtml(s.html) }} />
           )}
         </section>
       ))}

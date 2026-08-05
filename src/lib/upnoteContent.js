@@ -132,6 +132,38 @@ export function isHtmlContent(value) {
   return typeof value === 'string' && HTML_RE.test(value)
 }
 
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
+// 改行構造を持つブロック系タグ。これを含む HTML は入稿側で改行済みとみなす
+const BLOCK_TAG_RE = /<(p|br|div|li|ul|ol|table|h[1-6]|blockquote|pre|section|article)\b/i
+
+/**
+ * dangerouslySetInnerHTML に渡す表示用 HTML を返す。
+ * HTML ならそのまま、プレーンテキストなら改行を保持して変換する
+ * （空行区切り → <p>、単一改行 → <br>。API がテキスト型で返す本文対策）。
+ * インラインタグのみの HTML（<a> や <strong> 混じりのテキスト）は改行を <br> に変換する。
+ */
+export function toDisplayHtml(value) {
+  if (value == null || value === '') return ''
+  const s = String(value)
+  if (isHtmlContent(s)) {
+    if (!BLOCK_TAG_RE.test(s) && /\n/.test(s)) return s.replace(/\r?\n/g, '<br>')
+    return s
+  }
+  return s
+    .split(/\r?\n\s*\r?\n/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .map((p) => `<p>${escapeHtml(p).replace(/\r?\n/g, '<br>')}</p>`)
+    .join('')
+}
+
 /** UpNote members 1件を表示用オブジェクトに正規化 */
 export function normalizeMemberItem(item) {
   const data = item?.data || {}

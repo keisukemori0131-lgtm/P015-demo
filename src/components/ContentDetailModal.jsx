@@ -11,6 +11,7 @@ import {
   getContentImageUrls,
   getContentFieldEntries,
   formatContentDate,
+  toDisplayHtml,
 } from '../lib/upnoteContent.js'
 
 /**
@@ -73,15 +74,15 @@ export default function ContentDetailModal({ item, sections = [], onClose }) {
           </h2>
           {subtitle && <p className="modal__subtitle">{subtitle}</p>}
           {lead && <p className="modal__lead">{lead}</p>}
-          {body && <div className="modal__body" dangerouslySetInnerHTML={{ __html: body }} />}
+          {body && <div className="modal__body" dangerouslySetInnerHTML={{ __html: toDisplayHtml(body) }} />}
 
           {activeSections.map((s) => (
             <section key={s.label} className="modal__section">
               <h3>{s.label}</h3>
               {s.quote ? (
-                <blockquote dangerouslySetInnerHTML={{ __html: s.html }} />
+                <blockquote dangerouslySetInnerHTML={{ __html: toDisplayHtml(s.html) }} />
               ) : (
-                <div dangerouslySetInnerHTML={{ __html: s.html }} />
+                <div dangerouslySetInnerHTML={{ __html: toDisplayHtml(s.html) }} />
               )}
             </section>
           ))}

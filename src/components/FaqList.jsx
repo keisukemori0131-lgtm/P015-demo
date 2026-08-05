@@ -3,7 +3,7 @@ import { JsonLd } from '../lib/headManager.js'
 import { Loading, ErrorMsg, EmptyMsg } from './StateMessage.jsx'
 import { useContentList } from '../lib/useUpNote.js'
 import { isEnabled, CONTENT_TYPE_FOR } from '../config/upnoteContentTypes.js'
-import { getContentTitle, getContentBody } from '../lib/upnoteContent.js'
+import { getContentTitle, getContentBody, toDisplayHtml } from '../lib/upnoteContent.js'
 import { buildFaqPage } from '../lib/structuredData.js'
 import { EMPTY_MESSAGES } from '../lib/upnote.js'
 
@@ -54,7 +54,7 @@ export default function FaqList() {
                   <span className="faq-item__mark faq-item__mark--a" aria-hidden="true">
                     A
                   </span>
-                  <div className="faq-item__atext" dangerouslySetInnerHTML={{ __html: a }} />
+                  <div className="faq-item__atext" dangerouslySetInnerHTML={{ __html: toDisplayHtml(a) }} />
                 </div>
               )}
             </div>

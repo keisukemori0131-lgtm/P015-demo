@@ -2920,6 +2920,14 @@ ul {
 .field-img {
   border-radius: 10px;
 }
+/* プレーンテキストのフィールド値・リード文は改行を保持する */
+.field-text,
+.modal__lead,
+.modal__subtitle,
+.article__lead,
+.article__subtitle {
+  white-space: pre-line;
+}
 
 /* 404 */
 .notfound {
